@@ -1,0 +1,2 @@
+# Catan Game
+For my final project in Computer Science 12, we are tasked with creating a version of a board game in Java. I chose to create Catan. This version supports between 2 and 4 players, and contains most (but not all) Catan mechanics.
