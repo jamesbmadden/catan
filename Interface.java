@@ -217,8 +217,6 @@ public class Interface implements ActionListener {
     // get the action we're responding to
     String command = event.getActionCommand();
 
-    int[] coordsForBuild;
-
     switch (command) {
 
       // the end turn button is pressed: go to the next turn and update the UI
