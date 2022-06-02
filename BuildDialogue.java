@@ -18,16 +18,19 @@ public class BuildDialogue extends JPanel implements ActionListener {
   JDialog dialogue;
   int mode;
   Texture background = new Texture("img/buildbackground.png");
+  Board board;
   // the result will be saved here so wherever this class was created from can
   // read it
   int[] result = { -1, -1 };
 
-  public BuildDialogue(JFrame frame, int _mode) throws IOException {
+  public BuildDialogue(JFrame frame, int _mode, Board _board) throws IOException {
 
     super();
 
     // set mode to whatever was provided
     mode = _mode;
+    // and the reference to the board
+    board = _board;
     // create the dialogue for configuring
     dialogue = new JDialog(frame, "Build", Dialog.ModalityType.DOCUMENT_MODAL);
     dialogue.setSize(416, 438);
@@ -81,6 +84,12 @@ public class BuildDialogue extends JPanel implements ActionListener {
         // out in the action listener
         button.setActionCommand(x + "," + y);
         button.addActionListener(this);
+
+        // if the space has already been built on, disable the button
+        if (board.roads[y][x] != 0) {
+          button.setEnabled(false);
+        }
+
         add(button);
 
       }
@@ -110,6 +119,7 @@ public class BuildDialogue extends JPanel implements ActionListener {
         // out in the action listener
         button.setActionCommand(x + "," + y);
         button.addActionListener(this);
+
         add(button);
 
       }
