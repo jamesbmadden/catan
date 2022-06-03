@@ -78,8 +78,8 @@ public class BuildDialogue extends JPanel implements ActionListener {
       return false;
     }
 
-    // if x is even, check whether the roads beside border it
-    if (x % 2 == 0) {
+    // if y is even, check whether the roads beside border it
+    if (y % 2 == 0) {
 
       // is there a road to the right?
       if (x + 1 < board.roads[y].length && board.roads[y][x + 1] == player) {
