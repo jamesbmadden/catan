@@ -19,11 +19,13 @@ public class BuildDialogue extends JPanel implements ActionListener {
   int mode;
   Texture background = new Texture("img/buildbackground.png");
   Board board;
+  // which player is building
+  int player;
   // the result will be saved here so wherever this class was created from can
   // read it
   int[] result = { -1, -1 };
 
-  public BuildDialogue(JFrame frame, int _mode, Board _board) throws IOException {
+  public BuildDialogue(JFrame frame, int _mode, Board _board, int _player) throws IOException {
 
     super();
 
@@ -31,6 +33,8 @@ public class BuildDialogue extends JPanel implements ActionListener {
     mode = _mode;
     // and the reference to the board
     board = _board;
+    // and the player number
+    player = _player;
     // create the dialogue for configuring
     dialogue = new JDialog(frame, "Build", Dialog.ModalityType.DOCUMENT_MODAL);
     dialogue.setSize(416, 438);
@@ -64,6 +68,29 @@ public class BuildDialogue extends JPanel implements ActionListener {
   }
 
   /**
+   * check to see if the road can be built, based on whether or not it's bordering
+   * another row
+   */
+  public boolean isRoadBuildable(int x, int y, int player) {
+
+    // IMMEDIATELY, if the road is already built on, return false
+    if (board.roads[y][x] != 0) {
+      return false;
+    }
+
+    // if x is even, check whether the roads beside border it
+    if (x % 2 == 0) {
+
+      // is there a road to the right?
+      if (x + 1 < board.roads[y].length && board.roads[y][x + 1] == player) {
+        return true;
+      }
+
+    }
+    return false;
+  }
+
+  /**
    * Add buttons for building roads
    */
   public void addRoadButtons() {
@@ -85,10 +112,8 @@ public class BuildDialogue extends JPanel implements ActionListener {
         button.setActionCommand(x + "," + y);
         button.addActionListener(this);
 
-        // if the space has already been built on, disable the button
-        if (board.roads[y][x] != 0) {
-          button.setEnabled(false);
-        }
+        // determine whether this is a valid space to build on
+        button.setEnabled(isRoadBuildable(x, y, player));
 
         add(button);
 

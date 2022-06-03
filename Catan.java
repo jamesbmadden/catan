@@ -152,7 +152,7 @@ public class Catan extends JPanel {
 
     // try to open a build dialogue to grab the coordinates for the build
     try {
-      BuildDialogue dialogue = new BuildDialogue(frame, mode, board);
+      BuildDialogue dialogue = new BuildDialogue(frame, mode, board, currentTurn);
       buildCoords = dialogue.result;
     } catch (Exception error) {
       System.out.println("Failed! Just giving up");
