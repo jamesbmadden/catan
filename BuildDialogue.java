@@ -98,6 +98,12 @@ public class BuildDialogue extends JPanel implements ActionListener {
         return true;
       }
 
+      // how about above?
+      if (y > 0 && roundedX < board.roads[y - 1].length
+          && board.roads[y - 1][roundedX] == player) {
+        return true;
+      }
+
     }
     return false;
   }
