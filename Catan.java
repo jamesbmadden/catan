@@ -260,6 +260,10 @@ public class Catan extends JPanel {
         int localX = x - startGameColumn;
         int localY = y - startGameRow;
 
+        if (y - startGameRow == 5) {
+          startGameColumn = (columnsToRender - board.getRow(4).length) / 2 + 1;
+        }
+
         renderRoads(gl, localX, localY, startX + x * tileWidth,
             firstY + y * (int) (tileHeight / 1.5));
 
