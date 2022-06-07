@@ -92,10 +92,26 @@ public class BuildDialogue extends JPanel implements ActionListener {
       }
 
       // is there a road below?
-      int roundedX = Math.round(x / (float) 2.0);
+      int roundedX;
+      if (y < 6) {
+        roundedX = Math.round(x / (float) 2.0);
+      } else {
+        // this is the same as flooring the result, integer division just ignores the
+        // decimal
+        roundedX = x / 2;
+      }
+
       if (y + 1 < board.roads.length && roundedX < board.roads[y + 1].length
           && board.roads[y + 1][roundedX] == player) {
         return true;
+      }
+
+      if (y > 5) {
+        roundedX = Math.round(x / (float) 2.0);
+      } else {
+        // this is the same as flooring the result, integer division just ignores the
+        // decimal
+        roundedX = x / 2;
       }
 
       // how about above?
