@@ -39,7 +39,7 @@ public class Board {
 
   // which settlement spaces are already filled with settlements
   int[][] settlements = {
-      { 0, 0, 0, 0, 0, 0, 0 },
+      { 1, 0, 0, 0, 0, 0, 0 },
       { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
       { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
       { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
