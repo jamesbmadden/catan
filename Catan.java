@@ -276,6 +276,7 @@ public class Catan extends JPanel {
 
         renderRoad(gl, localX, localY, startX + x * tileWidth,
             firstY + y * (int) (tileHeight / 1.5));
+        renderSettlement(gl, localX, localY, startX + x * tileWidth, firstY + y * (int) (tileHeight / 1.5));
 
       }
 
@@ -391,6 +392,40 @@ public class Catan extends JPanel {
             null,
             null);
 
+      }
+
+    }
+
+  }
+
+  /**
+   * here we go again :(
+   */
+  public void renderSettlement(Graphics gl, int x, int y, int drawX, int drawY) {
+
+    // ok so each tile should draw the top-left and top settlements
+    // lets find those coordinates
+    int settlementX = x * 2;
+    int settlementY = y;
+
+    // check whether we're within the settlement realm
+    if (settlementY < 6 && settlementX < board.settlements[settlementY].length) {
+
+      // grab the first settlement
+      int settlementType = board.settlements[settlementY][settlementX];
+
+      // if it's not empty, render!
+      if (settlementType != 0) {
+
+        // this is the FIRST settlement, so render using to left coordinates
+        int startX = -20;
+        int startY = 0;
+
+        gl.drawImage(settlementTextures[settlementType].img, drawX + startX,
+            drawY + startY, 40,
+            52,
+            null,
+            null);
       }
 
     }
