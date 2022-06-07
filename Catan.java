@@ -31,6 +31,8 @@ public class Catan extends JPanel {
   Texture[] gradientTextures;
   // the road textures (which there's a lot of)
   Texture[][] roadTextures;
+  // the settlement textures
+  Texture[] settlementTextures;
 
   // get the size of the tiles, in pixels
   int tileWidth = 96;
@@ -113,11 +115,19 @@ public class Catan extends JPanel {
           { new Texture("img/builds/road/p4/left.png"), new Texture("img/builds/road/p4/right.png"),
               new Texture("img/builds/road/p4/down.png") }
       };
+      Texture[] _settlementTextures = {
+          null,
+          new Texture("img/builds/settlement/p1.png"),
+          new Texture("img/builds/settlement/p2.png"),
+          new Texture("img/builds/settlement/p3.png"),
+          new Texture("img/builds/settlement/p4.png")
+      };
       // set this list of textures so it can be used
       tileTextures = _tileTextures;
       numberTextures = _numberTextures;
       gradientTextures = _gradientTextures;
       roadTextures = _roadTextures;
+      settlementTextures = _settlementTextures;
 
     } catch (Exception error) {
 
