@@ -264,7 +264,7 @@ public class Catan extends JPanel {
           startGameColumn = (columnsToRender - board.getRow(4).length) / 2 + 1;
         }
 
-        renderRoads(gl, localX, localY, startX + x * tileWidth,
+        renderRoad(gl, localX, localY, startX + x * tileWidth,
             firstY + y * (int) (tileHeight / 1.5));
 
       }
@@ -276,7 +276,7 @@ public class Catan extends JPanel {
   /**
    * Draw the little roads onto the board
    */
-  public void renderRoads(Graphics gl, int x, int y, int drawX, int drawY) {
+  public void renderRoad(Graphics gl, int x, int y, int drawX, int drawY) {
 
     // okay lets get this over with :(
     // first off, define what type of road we need at each spot (left = 0, right =
