@@ -9,9 +9,9 @@ public class Player {
   // resources
   int wood = 9999999;
   int bricks = 9999999;
-  int wheat = 0;
-  int ore = 0;
-  int sheep = 0;
+  int wheat = 9999999;
+  int ore = 9999999;
+  int sheep = 9999999;
 
   // which spaces this player has settlements
   // 1 is a settlement, 2 is a city
