@@ -78,8 +78,10 @@ public class BuildDialogue extends JPanel implements ActionListener {
       return false;
     }
 
-    // if y is even, check whether the roads beside border it
     if (y % 2 == 0) {
+
+      // if y is even, check whether the roads beside border it,
+      // and the roads above or below at either one of its intersections
 
       // is there a road to the right?
       if (x + 1 < board.roads[y].length && board.roads[y][x + 1] == player) {
@@ -93,6 +95,8 @@ public class BuildDialogue extends JPanel implements ActionListener {
 
       // is there a road below?
       int roundedX;
+      // it needs to be rounded differently depending on whether it's above or below
+      // halfway
       if (y < 6) {
         roundedX = Math.round(x / (float) 2.0);
       } else {
@@ -106,6 +110,9 @@ public class BuildDialogue extends JPanel implements ActionListener {
         return true;
       }
 
+      // how about above?
+      // it needs to be rounded differently depending on whether it's above or below
+      // halfway
       if (y > 5) {
         roundedX = Math.round(x / (float) 2.0);
       } else {
@@ -114,9 +121,35 @@ public class BuildDialogue extends JPanel implements ActionListener {
         roundedX = x / 2;
       }
 
-      // how about above?
       if (y > 0 && roundedX < board.roads[y - 1].length
           && board.roads[y - 1][roundedX] == player) {
+        return true;
+      }
+
+    } else {
+
+      // for odd rows, we're looking at the vertical roads
+      // possible locations for borders are top left, top right,
+      // bottom left, and bottom right.
+
+      // first, check whether the two above have roads
+      // the formula differs for the top half and bottom half because they have
+      // different offsets
+      int roundedX;
+      if (y < 6) {
+        roundedX = x * 2 - 1;
+      } else {
+        roundedX = x * 2;
+      }
+
+      // now check top left
+      if (y > 0 && roundedX >= 0 && roundedX < board.roads[y - 1].length
+          && board.roads[y - 1][roundedX] == player) {
+        return true;
+      }
+      // and top right
+      if (y > 0 && roundedX + 1 < board.roads[y - 1].length
+          && board.roads[y - 1][roundedX + 1] == player) {
         return true;
       }
 
