@@ -215,16 +215,24 @@ public class BuildDialogue extends JPanel implements ActionListener {
 
     // create buttons for each possible settlement space
     // create a list of how many settlements there are per row
-    int[] roadsPerRow = { 3, 4, 5, 4, 3 };
+    int[] settlementsPerRow = { 7, 9, 11, 11, 9, 7 };
     // how much to offset each row on the x axis
-    int[] rowOffset = { 110, 75, 40, 75, 110 };
+    int[] rowOffset = { 90, 55, 20, 20, 55, 90 };
 
-    for (int y = 0; y < 5; y++) {
+    for (int y = 0; y < 6; y++) {
 
-      for (int x = 0; x < roadsPerRow[y]; x++) {
+      for (int x = 0; x < settlementsPerRow[y]; x++) {
 
         JButton button = new JButton("+");
-        button.setBounds(rowOffset[y] + x * 70, 50 + y * 65, 40, 40);
+        // if the column is odd, offset the y position
+        // if y > 2, the offset should be flipped
+        int yOffset;
+        if (y < 3) {
+          yOffset = x % 2 * -20;
+        } else {
+          yOffset = (x + 1) % 2 * -20;
+        }
+        button.setBounds(rowOffset[y] + x * 35, 40 + yOffset + y * 65, 20, 20);
         // set the action command to the coordinates where to build so it may be figured
         // out in the action listener
         button.setActionCommand(x + "," + y);
