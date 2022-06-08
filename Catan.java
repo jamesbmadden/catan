@@ -180,7 +180,7 @@ public class Catan extends JPanel {
 
       // if mode - 1, building settlement
       case 1:
-        board.roads[buildCoords[1]][buildCoords[0]] = currentTurn;
+        board.settlements[buildCoords[1]][buildCoords[0]] = currentTurn;
         players[currentTurn - 1].buildSettlement(buildCoords[0], buildCoords[1]);
         break;
 
