@@ -81,6 +81,14 @@ public class Player {
 
   public void buildSettlement(int x, int y) {
 
+    // set the coordinate in roads
+    settlements[y][x] = 1;
+    // and then subtract the resources
+    bricks--;
+    wood--;
+    wheat--;
+    sheep--;
+
   }
 
 }
