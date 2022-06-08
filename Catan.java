@@ -418,7 +418,7 @@ public class Catan extends JPanel {
       // if it's not empty, render!
       if (settlementType != 0) {
 
-        // this is the FIRST settlement, so render using to left coordinates
+        // this is the FIRST settlement, so render using the left coordinates
         int startX = -10;
         int startY = 13;
 
@@ -427,6 +427,28 @@ public class Catan extends JPanel {
             26,
             null,
             null);
+      }
+
+      // now IF there's another settlement to render, render that one!
+      settlementX++;
+      if (settlementX < board.settlements[settlementY].length) {
+
+        // it exists, so check the settlement type
+        settlementType = board.settlements[settlementY][settlementX];
+        if (settlementType != 0) {
+
+          // this is the TOP settlement, so render using the top coordinates
+          int startX = tileWidth / 2 - 10;
+          int startY = -13;
+
+          gl.drawImage(settlementTextures[settlementType].img, drawX + startX,
+              drawY + startY, 20,
+              26,
+              null,
+              null);
+
+        }
+
       }
 
     }
