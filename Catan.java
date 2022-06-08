@@ -409,7 +409,8 @@ public class Catan extends JPanel {
     int settlementY = y;
 
     // check whether we're within the settlement realm
-    if (settlementY < 6 && settlementX < board.settlements[settlementY].length) {
+    if (settlementY >= 0 && settlementY < 6 && settlementX >= 0
+        && settlementX < board.settlements[settlementY].length) {
 
       // grab the first settlement
       int settlementType = board.settlements[settlementY][settlementX];
@@ -418,12 +419,12 @@ public class Catan extends JPanel {
       if (settlementType != 0) {
 
         // this is the FIRST settlement, so render using to left coordinates
-        int startX = -20;
-        int startY = 0;
+        int startX = -10;
+        int startY = 13;
 
         gl.drawImage(settlementTextures[settlementType].img, drawX + startX,
-            drawY + startY, 40,
-            52,
+            drawY + startY, 20,
+            26,
             null,
             null);
       }
