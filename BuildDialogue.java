@@ -181,8 +181,39 @@ public class BuildDialogue extends JPanel implements ActionListener {
    */
   public boolean isSettlementBuildable(int x, int y, int player) {
 
-    if (board.settlements[y][x] != 0)
+    // check whether this space is already filled
+    if (board.settlements[y][x] != 0) {
       return false;
+    }
+    // now check whether any of the bordering spaces are already taken, in which
+    // case it can't be built there
+    // check right
+    if (x + 1 < board.settlements[y].length && board.settlements[y][x + 1] != 0) {
+      return false;
+    }
+    // and left
+    if (x > 0 && board.settlements[y][x - 1] != 0) {
+      return false;
+    }
+    // and above IF above is connected
+    if (x % 2 == 0 && y > 0) {
+      // different methods depending on whether we're in the top or bottom halves
+      if (y < 3) {
+
+        // top half so the row above has two less settlements
+        if (x != 0 && !(x - 1 >= board.settlements[y - 1].length) && board.settlements[y - 1][x - 1] != 0) {
+          return false;
+        }
+
+      } else {
+
+        // bottom half so the row above has two more settlements
+        if (board.settlements[y - 1][x + 1] != 0) {
+          return false;
+        }
+
+      }
+    }
 
     return true;
 
