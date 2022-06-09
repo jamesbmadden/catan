@@ -176,6 +176,19 @@ public class BuildDialogue extends JPanel implements ActionListener {
   }
 
   /**
+   * check whether that position already has a settlement, and if it's a valid
+   * place for this player to build
+   */
+  public boolean isSettlementBuildable(int x, int y, int player) {
+
+    if (board.settlements[y][x] != 0)
+      return false;
+
+    return true;
+
+  }
+
+  /**
    * Add buttons for building roads
    */
   public void addRoadButtons() {
@@ -237,6 +250,7 @@ public class BuildDialogue extends JPanel implements ActionListener {
         // out in the action listener
         button.setActionCommand(x + "," + y);
         button.addActionListener(this);
+        button.setEnabled(isSettlementBuildable(x, y, player));
 
         add(button);
 
