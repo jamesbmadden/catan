@@ -178,8 +178,11 @@ public class BuildDialogue extends JPanel implements ActionListener {
   /**
    * check whether that position already has a settlement, and if it's a valid
    * place for this player to build
+   * 
+   * Free Build refers to the start of the game when a settlement is able to be
+   * placed anywhere. During most gameplay, free build is disabled.
    */
-  public boolean isSettlementBuildable(int x, int y, int player) {
+  public boolean isSettlementBuildable(int x, int y, int player, boolean freeBuild) {
 
     // check whether this space is already filled
     if (board.settlements[y][x] != 0) {
@@ -250,7 +253,17 @@ public class BuildDialogue extends JPanel implements ActionListener {
 
     }
 
-    return true;
+    // now that we've made sure each settlement is at least 2 away from the other,
+    // make sure it's connected to a road. BUT ONLY IF free build is disabled.
+    if (freeBuild) {
+      // if free build mode is on and the settlement is at least 2 away from any
+      // other, we're good to go this is a valid space
+      return true;
+    }
+
+    // if we're still going here, free build is NOT on and we have to make sure
+    // roads are connected to the settlement
+    return false;
 
   }
 
@@ -316,7 +329,7 @@ public class BuildDialogue extends JPanel implements ActionListener {
         // out in the action listener
         button.setActionCommand(x + "," + y);
         button.addActionListener(this);
-        button.setEnabled(isSettlementBuildable(x, y, player));
+        button.setEnabled(isSettlementBuildable(x, y, player, false));
 
         add(button);
 
