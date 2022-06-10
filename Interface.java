@@ -2,7 +2,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,7 +55,8 @@ public class Interface implements ActionListener {
     addComponentToGrid(header, 0, 0, 10, 1);
     // set the style
     header.setHorizontalAlignment(SwingConstants.CENTER);
-    header.setForeground(Color.WHITE);
+    // set the header to the current player's colour
+    header.setForeground(parent.playerColours[parent.currentTurn - 1]);
     header.setFont(new Font("Serif", Font.PLAIN, 32));
 
     constraints.insets = new Insets(0, 0, 4, 4);
@@ -225,6 +225,8 @@ public class Interface implements ActionListener {
         if (confirmed) {
           parent.nextTurn();
           header.setText("Player " + parent.currentTurn + "'s Turn");
+          // set the header to the current player's colour
+          header.setForeground(parent.playerColours[parent.currentTurn - 1]);
         }
         break;
       case "build":

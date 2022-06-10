@@ -54,7 +54,13 @@ public class Catan extends JPanel {
 
   // an array of colours for each player, that is used for any graphical interface
   // elements (like player turn title)
-  Color[] playerColours = {};
+  // these match the colours used in the textures for roads and settlements
+  Color[] playerColours = {
+      new Color(229, 57, 53),
+      new Color(142, 36, 170),
+      new Color(0, 137, 123),
+      new Color(109, 76, 65)
+  };
 
   // create a new instance of the game
   public Catan(JFrame window) {
