@@ -52,6 +52,10 @@ public class Catan extends JPanel {
   int currentTurn = 1;
   Player[] players;
 
+  // an array of colours for each player, that is used for any graphical interface
+  // elements (like player turn title)
+  Color[] playerColours = {};
+
   // create a new instance of the game
   public Catan(JFrame window) {
 
