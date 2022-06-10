@@ -215,6 +215,27 @@ public class BuildDialogue extends JPanel implements ActionListener {
       }
     }
 
+    // FINALLY, check below IF connected
+    if (y + 1 < board.settlements.length) {
+
+      // different methods depending on whether we're in the top or bottom halves
+      if (x % 2 == 0 && y < 3 && y >= 0) {
+        // top half so the row below has two more settlements
+        if (x + 1 < board.settlements[y + 1].length && board.settlements[y + 1][x + 1] != 0) {
+          return false;
+        }
+
+      } else if (x % 2 == 1 && y > 2) {
+
+        // bottom half so the row below has two less settlements
+        if (x != 0 && x - 1 < board.settlements[y + 1].length && board.settlements[y + 1][x - 1] != 0) {
+          return false;
+        }
+
+      }
+
+    }
+
     return true;
 
   }
