@@ -205,10 +205,10 @@ public class BuildDialogue extends JPanel implements ActionListener {
           return false;
         }
 
-      } else if (x % 2 == 0) {
+      } else if (x % 2 == 0 && y > 2 && y < 6) {
 
         // bottom half so the row above has two more settlements
-        if (y < 6 && x + 1 < board.settlements[y - 1].length && board.settlements[y - 1][x + 1] != 0) {
+        if (x + 1 < board.settlements[y - 1].length && board.settlements[y - 1][x + 1] != 0) {
           return false;
         }
 
