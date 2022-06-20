@@ -263,6 +263,40 @@ public class BuildDialogue extends JPanel implements ActionListener {
 
     // if we're still going here, free build is NOT on and we have to make sure
     // roads are connected to the settlement
+    // ahhh!!!!!!!!
+    // :((((
+    if (y >= 0 && y < 6) {
+
+      // check to the left
+      if (x > 0 && x < board.roads[y * 2].length && board.roads[y * 2][x - 1] == player) {
+        return true;
+      }
+      // check to the right
+      if (x >= 0 && x < board.roads[y * 2].length && board.roads[y * 2][x] == player) {
+        return true;
+      }
+
+      // now the part that depends on top or bottom half
+      // IF the spot is connected by a road on the bottom half, check it
+      if (y < 3 && x % 2 == 0 && y < 5) {
+
+        // it is in fact connected by a road
+        if (x >= 0 && x < board.roads[y * 2 + 1].length && board.roads[y * 2 + 1][(int) Math.ceil(x / 2.0)] == player) {
+          return true;
+        }
+
+      }
+      if (y >= 3 && x % 2 == 1 && y < 5) {
+
+        if (x >= 0 && x < board.roads[y * 2 + 1].length
+            && board.roads[y * 2 + 1][x / 2] == player) {
+          return true;
+        }
+
+      }
+
+    }
+
     return false;
 
   }
