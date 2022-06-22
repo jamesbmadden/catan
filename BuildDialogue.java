@@ -195,7 +195,8 @@ public class BuildDialogue extends JPanel implements ActionListener {
   }
 
   /**
-   * in free build, if the road is beside the newly created settlement, return false
+   * in free build, if the road is beside the newly created settlement, return
+   * false
    */
   public boolean isRoadBorderingSettlement(int x, int y, int player) {
 
@@ -205,9 +206,6 @@ public class BuildDialogue extends JPanel implements ActionListener {
     int by = lastBuild[1];
 
     // is this the right of the settlement?
-    //if (x > 0 && x < board.roads[y * 2].length && board.roads[y * 2][x - 1] == player) {
-    //  return true;
-    //}
     if (y % 2 == 0 && y / 2 == by && x == bx) {
       return true;
     }
@@ -215,6 +213,33 @@ public class BuildDialogue extends JPanel implements ActionListener {
     if (y % 2 == 0 && y / 2 == by && x + 1 == bx) {
       return true;
     }
+    // now, depending on where in the board, check above and below
+    if (y % 2 == 1) {
+      // there is a potential settlement spot above and below
+      // check above
+      // first top half
+      if (y < 6 && y / 2 == by && x * 2 == bx) {
+        return true;
+      }
+      // then bottom half
+      else if (y / 2 == by && x * 2 + 1 == bx) {
+        return true;
+      }
+      // now check below
+      // first top half
+      if (y < 6 && y / 2 + 1 == by && x * 2 + 1 == bx) {
+        return true;
+      }
+      // then bottom half
+      else if (y / 2 + 1 == by && x * 2 == bx) {
+        return true;
+      }
+    }
+
+    // AND THAT'S IT!!!!!!!!!!
+    // WOOOOO!!!!
+    // Building detection all finished :)
+    // if nothing's been found yet, it's not a valid build space.
 
     return false;
 
