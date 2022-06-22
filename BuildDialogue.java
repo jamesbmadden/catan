@@ -278,17 +278,17 @@ public class BuildDialogue extends JPanel implements ActionListener {
 
       // now the part that depends on top or bottom half
       // IF the spot is connected by a road on the bottom half, check it
-      if (y < 3 && x % 2 == 0 && y < 5) {
+      if (y < 3 && x % 2 == 0) {
 
         // it is in fact connected by a road
-        if (x >= 0 && x < board.roads[y * 2 + 1].length && board.roads[y * 2 + 1][(int) Math.ceil(x / 2.0)] == player) {
+        if (x >= 0 && x < board.settlements[y].length && board.roads[y * 2 + 1][(int) Math.ceil(x / 2.0)] == player) {
           return true;
         }
 
       }
       if (y >= 3 && x % 2 == 1 && y < 5) {
 
-        if (x >= 0 && x < board.roads[y * 2 + 1].length
+        if (x >= 0 && x < board.settlements[y].length
             && board.roads[y * 2 + 1][x / 2] == player) {
           return true;
         }
