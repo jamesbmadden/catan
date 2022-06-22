@@ -147,7 +147,8 @@ public class Catan extends JPanel {
 
     }
 
-    Timer timer = new Timer(17, new ActionListener() {
+    // the window doesn't show if initGame is run right away, so use a timer to delay it slightly
+    Timer timer = new Timer(50, new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent event) {
         
