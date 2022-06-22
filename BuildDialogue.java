@@ -288,8 +288,23 @@ public class BuildDialogue extends JPanel implements ActionListener {
       }
       if (y >= 3 && x % 2 == 1 && y < 5) {
 
-        if (x >= 0 && x < board.settlements[y].length
-            && board.roads[y * 2 + 1][x / 2] == player) {
+        if (x >= 0 && x < board.settlements[y].length && board.roads[y * 2 + 1][x / 2] == player) {
+          return true;
+        }
+
+      }
+
+      // ok now if it's connected by a road above!!
+      if (y > 0 && y < 3 && x % 2 == 1) {
+
+        if (x >= 0 && x < board.settlements[y].length && board.roads[y * 2 - 1][x / 2] == player) {
+          return true;
+        }
+
+      }
+      if (y >= 3 && x % 2 == 0) {
+
+        if (x >= 0 && x < board.settlements[y].length && board.roads[y * 2 - 1][(int) Math.ceil(x / 2.0)] == player) {
           return true;
         }
 
