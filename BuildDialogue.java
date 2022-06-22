@@ -36,7 +36,7 @@ public class BuildDialogue extends JPanel implements ActionListener {
     // and the player number
     player = _player;
     // create the dialogue for configuring
-    dialogue = new JDialog(frame, "Build", Dialog.ModalityType.DOCUMENT_MODAL);
+    dialogue = new JDialog(frame, "Player " + player + ": Build", Dialog.ModalityType.DOCUMENT_MODAL);
     dialogue.setSize(416, 438);
     // add this panel to the dialogue to draw to
     dialogue.add(this);
@@ -58,7 +58,17 @@ public class BuildDialogue extends JPanel implements ActionListener {
 
       // if mode is one, add settlement buttons
       case 1:
-        addSettlementButtons();
+        addSettlementButtons(false);
+        break;
+
+      // if mode is two, add settlement buttons but it's cities this time
+      case 2:
+        addSettlementButtons(false);
+        break;
+
+      // case three is initializing the settlements, so use free build mode
+      case 3:
+        addSettlementButtons(true);
         break;
 
     }
@@ -352,7 +362,7 @@ public class BuildDialogue extends JPanel implements ActionListener {
   /**
    * Add buttons for building a road or settlement
    */
-  public void addSettlementButtons() {
+  public void addSettlementButtons(boolean freeBuild) {
 
     // create buttons for each possible settlement space
     // create a list of how many settlements there are per row
@@ -378,7 +388,7 @@ public class BuildDialogue extends JPanel implements ActionListener {
         // out in the action listener
         button.setActionCommand(x + "," + y);
         button.addActionListener(this);
-        button.setEnabled(isSettlementBuildable(x, y, player, false));
+        button.setEnabled(isSettlementBuildable(x, y, player, freeBuild));
 
         add(button);
 

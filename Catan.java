@@ -147,6 +147,18 @@ public class Catan extends JPanel {
 
     }
 
+    Timer timer = new Timer(17, new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent event) {
+        
+        // now, initialize the game with the process of building the first two settlements per player
+        initGame();
+
+      }
+    });
+    timer.setRepeats(false);
+    timer.start();
+
   }
 
   /**
@@ -157,6 +169,29 @@ public class Catan extends JPanel {
 
     // go to the next player's turn
     currentTurn = (currentTurn % config.playerCount) + 1;
+
+  }
+
+  /**
+   * run through each player letting them build two settlements each
+   */
+  public void initGame () {
+
+    // for each player, let them build their settlements and roads
+    // each player should get two settlements
+    for (int i = 0; i < 2; i++) {
+      // run through each player
+      for (int p = 1; p <= config.playerCount; p++) {
+        // build a settlement in free build mode
+        // current player should be whatever player is up to build
+        currentTurn = p;
+        openBuildDialogue(3);
+
+      }
+    }
+
+    // set current turn back to 1
+    currentTurn = 1;
 
   }
 
@@ -188,10 +223,12 @@ public class Catan extends JPanel {
         players[currentTurn - 1].buildRoad(buildCoords[0], buildCoords[1]);
         break;
 
-      // if mode - 1, building settlement
+      // if mode = 1, building settlement with resource consumption
+      // if mode = 3, free build!
       case 1:
-        board.settlements[buildCoords[1]][buildCoords[0]] = currentTurn;
         players[currentTurn - 1].buildSettlement(buildCoords[0], buildCoords[1]);
+      case 3:
+        board.settlements[buildCoords[1]][buildCoords[0]] = currentTurn;
         break;
 
     }
@@ -534,7 +571,8 @@ public class Catan extends JPanel {
     window.setVisible(true);
 
     // when the window resizes, change Catan's properties
-    Timer timer = new Timer(0, new ActionListener() {
+    // Aprox. 60 FPS
+    Timer timer = new Timer(17, new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent event) {
         Dimension size = window.getBounds().getSize();
@@ -548,8 +586,6 @@ public class Catan extends JPanel {
     });
 
     timer.setRepeats(true);
-    // Aprox. 60 FPS
-    timer.setDelay(17);
     timer.start();
 
   }

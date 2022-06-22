@@ -26,6 +26,9 @@ public class Interface implements ActionListener {
   JButton tradeButton;
   JButton endTurnButton;
 
+  // whether popup buttons are open
+  boolean popupButtonsOpen = false;
+
   // the buttons for building
   JButton[] popupButtons = new JButton[3];
 
@@ -158,9 +161,17 @@ public class Interface implements ActionListener {
     }
     addComponentToGrid(popupButtons[2], 8, 19, 9, 20);
 
+    // build buttons are here, set the boolean
+    popupButtonsOpen = true;
+
   }
 
   public void closePopupButtons() {
+
+    // if buildbuttonsOpen is false, there's nothing to remove, so stop now
+    if (!popupButtonsOpen) {
+      return;
+    }
 
     // remove the first popup button
     parent.remove(popupButtons[0]);
@@ -183,6 +194,9 @@ public class Interface implements ActionListener {
     endTurnButton.setActionCommand("endturn");
     endTurnButton.setEnabled(true);
     endTurnButton.setMnemonic(KeyEvent.VK_E);
+
+    // set build buttons open to false now that they've been removed
+    popupButtonsOpen = false;
 
   }
 
