@@ -186,7 +186,10 @@ public class Catan extends JPanel {
         // build a settlement in free build mode
         // current player should be whatever player is up to build
         currentTurn = p;
+        // open the settlement build dialogue
         openBuildDialogue(3);
+        // now do this again ig
+        openBuildDialogue(4);
 
       }
     }
@@ -208,7 +211,7 @@ public class Catan extends JPanel {
 
     // try to open a build dialogue to grab the coordinates for the build
     try {
-      BuildDialogue dialogue = new BuildDialogue(frame, mode, board, currentTurn);
+      BuildDialogue dialogue = new BuildDialogue(frame, mode, board, currentTurn, this);
       buildCoords = dialogue.result;
     } catch (Exception error) {
       System.out.println("Failed! Just giving up");
@@ -219,17 +222,27 @@ public class Catan extends JPanel {
     switch (mode) {
 
       // if mode = 0, building road
+      // if mode = 4, free build road!
       case 0:
         board.roads[buildCoords[1]][buildCoords[0]] = currentTurn;
-        players[currentTurn - 1].buildRoad(buildCoords[0], buildCoords[1]);
+        players[currentTurn - 1].buildRoad(buildCoords[0], buildCoords[1], false);
+        break;
+
+      case 4:
+        board.roads[buildCoords[1]][buildCoords[0]] = currentTurn;
+        players[currentTurn - 1].buildRoad(buildCoords[0], buildCoords[1], true);
         break;
 
       // if mode = 1, building settlement with resource consumption
       // if mode = 3, free build!
       case 1:
-        players[currentTurn - 1].buildSettlement(buildCoords[0], buildCoords[1]);
+        board.settlements[buildCoords[1]][buildCoords[0]] = currentTurn;
+        players[currentTurn - 1].buildSettlement(buildCoords[0], buildCoords[1], false);
+        break;
+        
       case 3:
         board.settlements[buildCoords[1]][buildCoords[0]] = currentTurn;
+        players[currentTurn - 1].buildSettlement(buildCoords[0], buildCoords[1], true);
         break;
 
     }

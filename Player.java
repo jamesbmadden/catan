@@ -13,6 +13,9 @@ public class Player {
   int ore = 9999999;
   int sheep = 9999999;
 
+  // coordinates of the latest build
+  int[] latestBuild = { -1, -1 };
+
   // which spaces this player has settlements
   // 1 is a settlement, 2 is a city
   int[][] settlements = {
@@ -69,25 +72,31 @@ public class Player {
 
   }
 
-  public void buildRoad(int x, int y) {
+  public void buildRoad(int x, int y, boolean free) {
 
     // set the coordinate in roads
     roads[y][x] = true;
-    // and then subtract the resources
-    bricks--;
-    wood--;
+    latestBuild = new int[]{x, y};
+    // and then subtract the resources IF this build isn't free
+    if (!free) {
+      bricks--;
+      wood--;
+    }
 
   }
 
-  public void buildSettlement(int x, int y) {
+  public void buildSettlement(int x, int y, boolean free) {
 
     // set the coordinate in roads
     settlements[y][x] = 1;
+    latestBuild = new int[]{x, y};
     // and then subtract the resources
-    bricks--;
-    wood--;
-    wheat--;
-    sheep--;
+    if (!free) {
+      bricks--;
+      wood--;
+      wheat--;
+      sheep--;
+    }
 
   }
 

@@ -21,11 +21,13 @@ public class BuildDialogue extends JPanel implements ActionListener {
   Board board;
   // which player is building
   int player;
+  // the parent so we can reference player info
+  Catan parent;
   // the result will be saved here so wherever this class was created from can
   // read it
   int[] result = { -1, -1 };
 
-  public BuildDialogue(JFrame frame, int _mode, Board _board, int _player) throws IOException {
+  public BuildDialogue(JFrame frame, int _mode, Board _board, int _player, Catan _parent) throws IOException {
 
     super();
 
@@ -35,6 +37,8 @@ public class BuildDialogue extends JPanel implements ActionListener {
     board = _board;
     // and the player number
     player = _player;
+    // and the parent
+    parent = _parent;
     // create the dialogue for configuring
     dialogue = new JDialog(frame, "Player " + player + ": Build", Dialog.ModalityType.DOCUMENT_MODAL);
     dialogue.setSize(416, 438);
@@ -53,7 +57,7 @@ public class BuildDialogue extends JPanel implements ActionListener {
 
       // if mode is zero, add road positions
       case 0:
-        addRoadButtons();
+        addRoadButtons(false);
         break;
 
       // if mode is one, add settlement buttons
@@ -69,6 +73,11 @@ public class BuildDialogue extends JPanel implements ActionListener {
       // case three is initializing the settlements, so use free build mode
       case 3:
         addSettlementButtons(true);
+        break;
+
+      // case four is for building a road beside the latest settlement built
+      case 4:
+        addRoadButtons(true);
         break;
 
     }
@@ -183,6 +192,32 @@ public class BuildDialogue extends JPanel implements ActionListener {
 
     }
     return false;
+  }
+
+  /**
+   * in free build, if the road is beside the newly created settlement, return false
+   */
+  public boolean isRoadBorderingSettlement(int x, int y, int player) {
+
+    // get the last build (will be the previous settlement) from the player
+    int[] lastBuild = parent.players[player - 1].latestBuild;
+    int bx = lastBuild[0];
+    int by = lastBuild[1];
+
+    // is this the right of the settlement?
+    //if (x > 0 && x < board.roads[y * 2].length && board.roads[y * 2][x - 1] == player) {
+    //  return true;
+    //}
+    if (y % 2 == 0 && y / 2 == by && x == bx) {
+      return true;
+    }
+    // how about the left?
+    if (y % 2 == 0 && y / 2 == by && x + 1 == bx) {
+      return true;
+    }
+
+    return false;
+
   }
 
   /**
@@ -329,7 +364,7 @@ public class BuildDialogue extends JPanel implements ActionListener {
   /**
    * Add buttons for building roads
    */
-  public void addRoadButtons() {
+  public void addRoadButtons(boolean freeBuild) {
 
     // create buttons for each possible road space
     // create a list of how many roads there are per row
@@ -349,7 +384,12 @@ public class BuildDialogue extends JPanel implements ActionListener {
         button.addActionListener(this);
 
         // determine whether this is a valid space to build on
-        button.setEnabled(isRoadBuildable(x, y, player));
+        // use different function depending on whether or not it's free build mode
+        if (freeBuild) {
+          button.setEnabled(isRoadBorderingSettlement(x, y, player));
+        } else {
+          button.setEnabled(isRoadBuildable(x, y, player));
+        }
 
         add(button);
 
