@@ -102,8 +102,6 @@ public class Player {
 
   public void add(int type, int count) {
 
-    System.out.println("Adding " + count + " of " + type + " for whichever player this is lol");
-
     // depending on the resource's number, add it
     switch (type) {
       // 0 = water, undefined
