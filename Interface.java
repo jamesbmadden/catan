@@ -96,18 +96,23 @@ public class Interface implements ActionListener {
     // create the resource lists
     sheep = new JLabel("Sheep: " + parent.players[parent.currentTurn - 1].sheep);
     sheep.setForeground(Color.WHITE);
+    sheep.setFont(new Font("Serif", Font.PLAIN, 24));
     addComponentToGrid(sheep, 0, 15, 1, 16);
     wood = new JLabel("Wood: " + parent.players[parent.currentTurn - 1].wood);
     wood.setForeground(Color.WHITE);
+    wood.setFont(new Font("Serif", Font.PLAIN, 24));
     addComponentToGrid(wood, 0, 16, 1, 17);
     bricks = new JLabel("Bricks: " + parent.players[parent.currentTurn - 1].bricks);
     bricks.setForeground(Color.WHITE);
+    bricks.setFont(new Font("Serif", Font.PLAIN, 24));
     addComponentToGrid(bricks, 0, 17, 1, 18);
     wheat = new JLabel("Wheat: " + parent.players[parent.currentTurn - 1].wheat);
     wheat.setForeground(Color.WHITE);
+    wheat.setFont(new Font("Serif", Font.PLAIN, 24));
     addComponentToGrid(wheat, 0, 18, 1, 19);
     ore = new JLabel("Ore: " + parent.players[parent.currentTurn - 1].ore);
     ore.setForeground(Color.WHITE);
+    ore.setFont(new Font("Serif", Font.PLAIN, 24));
     addComponentToGrid(ore, 0, 19, 1, 20);
 
   }
