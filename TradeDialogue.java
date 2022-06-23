@@ -188,11 +188,20 @@ public class TradeDialogue implements ActionListener {
           JRadioButton option = new JRadioButton("Player " + i);
           option.setActionCommand("set-player-" + i);
           option.addActionListener(this);
+          option.setSelected(i == selectedPlayer);
           playerToTradeWith.add(option);
           panels[1].add(option);
         }
 
       }
+
+    }
+
+    // continue IF player has been selected
+    if (selectedPlayer != 0) {
+
+      JLabel test = new JLabel("hehe");
+      panels[1].add(test);
 
     }
 
@@ -310,18 +319,34 @@ public class TradeDialogue implements ActionListener {
       // set the player to trade with
       case "set-player-1":
         selectedPlayer = 1;
+        panels[1].removeAll();
+        populatePlayerTab();
+        panels[1].revalidate();
+        panels[1].repaint();
         break;
 
       case "set-player-2":
         selectedPlayer = 2;
+        panels[1].removeAll();
+        populatePlayerTab();
+        panels[1].revalidate();
+        panels[1].repaint();
         break;
 
       case "set-player-3":
         selectedPlayer = 3;
+        panels[1].removeAll();
+        populatePlayerTab();
+        panels[1].revalidate();
+        panels[1].repaint();
         break;
       
       case "set-player-4":
         selectedPlayer = 4;
+        panels[1].removeAll();
+        populatePlayerTab();
+        panels[1].revalidate();
+        panels[1].repaint();
         break;
 
     }
