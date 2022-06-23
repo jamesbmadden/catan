@@ -40,6 +40,10 @@ public class Interface implements ActionListener {
   JLabel wheat;
   JLabel ore;
 
+  // components for displaying the scores
+  JLabel scoreHeader;
+  JLabel[] scores;
+
   // and the grid layout constraints
   GridBagConstraints constraints = new GridBagConstraints();
 
@@ -114,6 +118,24 @@ public class Interface implements ActionListener {
     ore.setForeground(Color.WHITE);
     ore.setFont(new Font("Serif", Font.PLAIN, 24));
     addComponentToGrid(ore, 0, 19, 1, 20);
+
+    // create components for the scores
+    scoreHeader = new JLabel("Scores:");
+    scoreHeader.setFont(new Font("Serif", Font.PLAIN, 24));
+    scoreHeader.setForeground(Color.WHITE);
+    addComponentToGrid(scoreHeader, 0, 1, 1, 2);
+
+    // create the score labels
+    scores = new JLabel[parent.config.playerCount];
+    for (int i = 0; i < parent.config.playerCount; i++) {
+
+      // establish the scoreboard
+      scores[i] = new JLabel("" + parent.players[i].score);
+      scores[i].setForeground(parent.playerColours[i]);
+      scores[i].setFont(new Font("Serif", Font.BOLD, 20));
+      addComponentToGrid(scores[i], 0, 2 + i, 1, 3 + i);
+
+    }
 
   }
 
@@ -228,6 +250,9 @@ public class Interface implements ActionListener {
     // set build buttons open to false now that they've been removed
     popupButtonsOpen = false;
 
+    // update the display
+    update();
+
   }
 
   /**
@@ -268,6 +293,13 @@ public class Interface implements ActionListener {
     bricks.setText("Bricks: " + parent.players[parent.currentTurn - 1].bricks);
     wheat.setText("Wheat: " + parent.players[parent.currentTurn - 1].wheat);
     ore.setText("Ore: " + parent.players[parent.currentTurn - 1].ore);
+
+    // update the scoreboard
+    for (int i = 0; i < parent.config.playerCount; i++) {
+
+      scores[i].setText("" + parent.players[i].score);
+
+    }
 
   }
 

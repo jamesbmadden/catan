@@ -13,6 +13,9 @@ public class Player {
   int ore = 0;
   int sheep = 0;
 
+  // keep track of how many points this player has
+  int score = 0;
+
   // coordinates of the latest build
   int[] latestBuild = { -1, -1 };
 
@@ -97,6 +100,9 @@ public class Player {
       wheat--;
       sheep--;
     }
+
+    // you get a point!
+    score++;
 
   }
 
