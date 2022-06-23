@@ -26,6 +26,7 @@ public class TradeDialogue implements ActionListener {
   JRadioButton ore;
 
   int selectedToGive = 0;
+  int selectedPlayer = 1;
 
   JButton sheepButton;
   JButton woodButton;
@@ -47,6 +48,7 @@ public class TradeDialogue implements ActionListener {
 
     // adds content to the bank tab
     populateBankTab();
+    populatePlayerTab();
 
     dialogue.add(tabs);
 
@@ -129,23 +131,69 @@ public class TradeDialogue implements ActionListener {
       sheepButton = new JButton("Sheep");
       sheepButton.setActionCommand("bank-take-sheep");
       sheepButton.addActionListener(this);
+      sheepButton.setEnabled(false);
       panels[0].add(sheepButton);
       woodButton = new JButton("Wood");
       woodButton.setActionCommand("bank-take-wood");
       woodButton.addActionListener(this);
+      woodButton.setEnabled(false);
       panels[0].add(woodButton);
       bricksButton = new JButton("Bricks");
       bricksButton.setActionCommand("bank-take-bricks");
       bricksButton.addActionListener(this);
+      bricksButton.setEnabled(false);
       panels[0].add(bricksButton);
       wheatButton = new JButton("Wheat");
       wheatButton.setActionCommand("bank-take-wheat");
       wheatButton.addActionListener(this);
+      wheatButton.setEnabled(false);
       panels[0].add(wheatButton);
       oreButton = new JButton("Ore");
       oreButton.setActionCommand("bank-take-ore");
       oreButton.addActionListener(this);
+      oreButton.setEnabled(false);
       panels[0].add(oreButton);
+    }
+
+  }
+
+  public void populatePlayerTab () {
+
+    JLabel header = new JLabel("Player " + parent.currentTurn + ": What to offer?");
+    panels[1].add(header);
+
+    // if there's only one player, there's no need for selecting a player. Pick the one that
+    // ISN'T currently the player.
+    if (parent.config.playerCount == 2) {
+
+      if (parent.currentTurn == 1) {
+        selectedPlayer = 2;
+      } else {
+        selectedPlayer = 1;
+      }
+
+    } else {
+
+      // add a title
+      JLabel whoTo = new JLabel("Who to trade with?");
+      panels[1].add(whoTo);
+
+      ButtonGroup playerToTradeWith = new ButtonGroup();
+      // and checkboxes for each player.
+      for (int i = 1; i <= parent.config.playerCount; i++) {
+
+        // don't add an option for the current player
+        if (i != parent.currentTurn) {
+          // otherwise, add an option
+          JRadioButton option = new JRadioButton("Player " + i);
+          option.setActionCommand("set-player-" + i);
+          option.addActionListener(this);
+          playerToTradeWith.add(option);
+          panels[1].add(option);
+        }
+
+      }
+
     }
 
   }
@@ -257,6 +305,23 @@ public class TradeDialogue implements ActionListener {
         giveResource();
         parent.players[parent.currentTurn - 1].ore++;
         dialogue.dispose();
+        break;
+
+      // set the player to trade with
+      case "set-player-1":
+        selectedPlayer = 1;
+        break;
+
+      case "set-player-2":
+        selectedPlayer = 2;
+        break;
+
+      case "set-player-3":
+        selectedPlayer = 3;
+        break;
+      
+      case "set-player-4":
+        selectedPlayer = 4;
         break;
 
     }
