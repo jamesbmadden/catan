@@ -334,6 +334,10 @@ public class Interface implements ActionListener {
         parent.openBuildDialogue(1);
         break;
 
+      // trade is pressed: open the dialogue
+      case "trade":
+        new TradeDialogue(parent);
+
     }
 
   }
