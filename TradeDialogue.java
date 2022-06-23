@@ -2,9 +2,10 @@
  * the dialogue that pops up when you click on the "trade" button.
  */
 import javax.swing.JDialog;
-import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.ButtonGroup;
@@ -12,6 +13,7 @@ import java.awt.Dialog;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Dimension;
 
 public class TradeDialogue implements ActionListener {
 
@@ -161,7 +163,40 @@ public class TradeDialogue implements ActionListener {
   public void populatePlayerTab () {
 
     JLabel header = new JLabel("Player " + parent.currentTurn + ": What to offer?");
+    header.setPreferredSize(new Dimension(400, 32));
+    header.setAlignmentX(SwingConstants.CENTER);
     panels[1].add(header);
+
+    // add dropdown boxes for each resource
+    String[] sheepOptions = new String[parent.players[parent.currentTurn - 1].sheep + 1];
+    for (int i = 0; i <= parent.players[parent.currentTurn - 1].sheep; i++) {
+      sheepOptions[i] = i + " Sheep";
+    }
+    panels[1].add(new JList<String>(sheepOptions));
+
+    String[] woodOptions = new String[parent.players[parent.currentTurn - 1].wood + 1];
+    for (int i = 0; i <= parent.players[parent.currentTurn - 1].wood; i++) {
+      woodOptions[i] = i + " Wood";
+    }
+    panels[1].add(new JList<String>(woodOptions));
+
+    String[] bricksOptions = new String[parent.players[parent.currentTurn - 1].bricks + 1];
+    for (int i = 0; i <= parent.players[parent.currentTurn - 1].bricks; i++) {
+      bricksOptions[i] = i + " Bricks";
+    }
+    panels[1].add(new JList<String>(bricksOptions));
+
+    String[] wheatOptions = new String[parent.players[parent.currentTurn - 1].wheat + 1];
+    for (int i = 0; i <= parent.players[parent.currentTurn - 1].wheat; i++) {
+      wheatOptions[i] = i + " Wheat";
+    }
+    panels[1].add(new JList<String>(wheatOptions));
+
+    String[] oreOptions = new String[parent.players[parent.currentTurn - 1].ore + 1];
+    for (int i = 0; i <= parent.players[parent.currentTurn - 1].ore; i++) {
+      oreOptions[i] = i + " Ore";
+    }
+    panels[1].add(new JList<String>(oreOptions));
 
     // if there's only one player, there's no need for selecting a player. Pick the one that
     // ISN'T currently the player.
