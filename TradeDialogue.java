@@ -36,6 +36,18 @@ public class TradeDialogue implements ActionListener {
   JButton wheatButton;
   JButton oreButton;
 
+  JList<String> sheepList;
+  JList<String> woodList;
+  JList<String> bricksList;
+  JList<String> wheatList;
+  JList<String> oreList;
+
+  JList<String> p2SheepList;
+  JList<String> p2WoodList;
+  JList<String> p2BricksList;
+  JList<String> p2WheatList;
+  JList<String> p2OreList;
+
   public TradeDialogue (Catan catan) {
 
     parent = catan;
@@ -56,7 +68,7 @@ public class TradeDialogue implements ActionListener {
     dialogue.add(tabs);
 
     // setsize of dialog
-    dialogue.setSize(400, 300);
+    dialogue.setSize(400, 600);
 
     // set visibility of dialog
     dialogue.setVisible(true);
@@ -162,9 +174,9 @@ public class TradeDialogue implements ActionListener {
 
   public void populatePlayerTab () {
 
-    JLabel header = new JLabel("Player " + parent.currentTurn + ": What to offer?");
+    JLabel header = new JLabel("Player " + parent.currentTurn + ": What are you offering?");
     header.setPreferredSize(new Dimension(400, 32));
-    header.setAlignmentX(SwingConstants.CENTER);
+    header.setHorizontalAlignment(SwingConstants.CENTER);
     panels[1].add(header);
 
     // add dropdown boxes for each resource
@@ -172,31 +184,41 @@ public class TradeDialogue implements ActionListener {
     for (int i = 0; i <= parent.players[parent.currentTurn - 1].sheep; i++) {
       sheepOptions[i] = i + " Sheep";
     }
-    panels[1].add(new JList<String>(sheepOptions));
+    sheepList = new JList<String>(sheepOptions);
+    sheepList.setSelectedIndex(0);
+    panels[1].add(sheepList);
 
     String[] woodOptions = new String[parent.players[parent.currentTurn - 1].wood + 1];
     for (int i = 0; i <= parent.players[parent.currentTurn - 1].wood; i++) {
       woodOptions[i] = i + " Wood";
     }
-    panels[1].add(new JList<String>(woodOptions));
+    woodList = new JList<String>(woodOptions);
+    woodList.setSelectedIndex(0);
+    panels[1].add(woodList);
 
     String[] bricksOptions = new String[parent.players[parent.currentTurn - 1].bricks + 1];
     for (int i = 0; i <= parent.players[parent.currentTurn - 1].bricks; i++) {
       bricksOptions[i] = i + " Bricks";
     }
-    panels[1].add(new JList<String>(bricksOptions));
+    bricksList = new JList<String>(bricksOptions);
+    bricksList.setSelectedIndex(0);
+    panels[1].add(bricksList);
 
     String[] wheatOptions = new String[parent.players[parent.currentTurn - 1].wheat + 1];
     for (int i = 0; i <= parent.players[parent.currentTurn - 1].wheat; i++) {
       wheatOptions[i] = i + " Wheat";
     }
-    panels[1].add(new JList<String>(wheatOptions));
+    wheatList = new JList<String>(wheatOptions);
+    wheatList.setSelectedIndex(0);
+    panels[1].add(wheatList);
 
     String[] oreOptions = new String[parent.players[parent.currentTurn - 1].ore + 1];
     for (int i = 0; i <= parent.players[parent.currentTurn - 1].ore; i++) {
       oreOptions[i] = i + " Ore";
     }
-    panels[1].add(new JList<String>(oreOptions));
+    oreList = new JList<String>(oreOptions);
+    oreList.setSelectedIndex(0);
+    panels[1].add(oreList);
 
     // if there's only one player, there's no need for selecting a player. Pick the one that
     // ISN'T currently the player.
@@ -237,7 +259,57 @@ public class TradeDialogue implements ActionListener {
     if (selectedPlayer != 0) {
 
       JLabel secondHeader = new JLabel("Player " + selectedPlayer + ": What would you like to give?");
+      secondHeader.setPreferredSize(new Dimension(400, 32));
+      secondHeader.setHorizontalAlignment(SwingConstants.CENTER);
       panels[1].add(secondHeader);
+
+      // add boxes for each of the resources for the selected player
+      // add dropdown boxes for each resource
+      sheepOptions = new String[parent.players[parent.currentTurn - 1].sheep + 1];
+      for (int i = 0; i <= parent.players[parent.currentTurn - 1].sheep; i++) {
+        sheepOptions[i] = i + " Sheep";
+      }
+      sheepList = new JList<String>(sheepOptions);
+      sheepList.setSelectedIndex(0);
+      panels[1].add(sheepList);
+
+      woodOptions = new String[parent.players[selectedPlayer - 1].wood + 1];
+      for (int i = 0; i <= parent.players[selectedPlayer - 1].wood; i++) {
+        woodOptions[i] = i + " Wood";
+      }
+      p2WoodList = new JList<String>(woodOptions);
+      p2WoodList.setSelectedIndex(0);
+      panels[1].add(p2WoodList);
+
+      bricksOptions = new String[parent.players[selectedPlayer - 1].bricks + 1];
+      for (int i = 0; i <= parent.players[selectedPlayer - 1].bricks; i++) {
+        bricksOptions[i] = i + " Bricks";
+      }
+      p2BricksList = new JList<String>(bricksOptions);
+      p2BricksList.setSelectedIndex(0);
+      panels[1].add(p2BricksList);
+
+      wheatOptions = new String[parent.players[selectedPlayer - 1].wheat + 1];
+      for (int i = 0; i <= parent.players[selectedPlayer - 1].wheat; i++) {
+        wheatOptions[i] = i + " Wheat";
+      }
+      p2WheatList = new JList<String>(wheatOptions);
+      p2WheatList.setSelectedIndex(0);
+      panels[1].add(p2WheatList);
+
+      oreOptions = new String[parent.players[selectedPlayer - 1].ore + 1];
+      for (int i = 0; i <= parent.players[selectedPlayer - 1].ore; i++) {
+        oreOptions[i] = i + " Ore";
+      }
+      p2OreList = new JList<String>(oreOptions);
+      p2OreList.setSelectedIndex(0);
+      panels[1].add(p2OreList);
+
+      // finally, add a trade button
+      JButton trade = new JButton("Trade");
+      trade.setActionCommand("make-trade");
+      trade.addActionListener(this);
+      panels[1].add(trade);
 
     }
 
