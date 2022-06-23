@@ -15,6 +15,8 @@ public class Player {
 
   // keep track of how many points this player has
   int score = 0;
+  
+  Catan parent;
 
   // coordinates of the latest build
   int[] latestBuild = { -1, -1 };
@@ -44,6 +46,12 @@ public class Player {
       { false, false, false, false },
       { false, false, false, false, false, false }
   };
+
+  public Player (Catan catan) {
+
+    parent = catan;
+
+  }
 
   /**
    * Check what types of things this player is able to build
@@ -102,7 +110,7 @@ public class Player {
     }
 
     // you get a point!
-    score++;
+    incrementScore();
 
   }
 
@@ -136,6 +144,16 @@ public class Player {
       // 6 = sand, undefined
       case 6:
         break;
+    }
+
+  }
+
+  public void incrementScore () {
+
+    score++;
+    
+    if (score >= parent.config.pointsToWin) {
+      parent.victory();
     }
 
   }

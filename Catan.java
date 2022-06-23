@@ -78,7 +78,7 @@ public class Catan extends JPanel {
     players = new Player[config.playerCount];
     // actually initialize the players, otherwise it's just a null
     for (int i = 0; i < config.playerCount; i++) {
-      players[i] = new Player();
+      players[i] = new Player(this);
     }
 
     // setup the UI
@@ -255,6 +255,17 @@ public class Catan extends JPanel {
 
       }
     }
+
+  }
+
+  /**
+   * When a player wins
+   */
+  public void victory() {
+
+    // open up a message box saying congratulations
+    JOptionPane.showMessageDialog(this, "Congratulations Player " + currentTurn + "! You won Catan!");
+    System.exit(0);
 
   }
 
