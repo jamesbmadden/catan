@@ -100,4 +100,14 @@ public class Player {
 
   }
 
+  public void add (int newWood, int newBricks, int newWheat, int newOre, int newSheep) {
+
+    wood += newWood;
+    bricks += newBricks;
+    wheat += newWheat;
+    ore += newOre;
+    sheep += newSheep;
+
+  }
+
 }
