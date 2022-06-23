@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -170,6 +171,25 @@ public class Catan extends JPanel {
 
     // go to the next player's turn
     currentTurn = (currentTurn % config.playerCount) + 1;
+
+    // now roll the die again
+    roll();
+
+  }
+
+  /**
+   * Move to the next turn by rolling the die
+   */
+  public void roll() {
+
+    Random random = new Random();
+    // create the rolls
+    int roll1 = random.nextInt(6) + 1;
+    int roll2 = random.nextInt(6) + 1;
+
+    int total = roll1 + roll2;
+
+    // find each tile with this number so resources can be added
 
   }
 
