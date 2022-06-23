@@ -7,11 +7,11 @@
 public class Player {
 
   // resources
-  int wood = 9999999;
-  int bricks = 9999999;
-  int wheat = 9999999;
-  int ore = 9999999;
-  int sheep = 9999999;
+  int wood = 0;
+  int bricks = 0;
+  int wheat = 0;
+  int ore = 0;
+  int sheep = 0;
 
   // coordinates of the latest build
   int[] latestBuild = { -1, -1 };
