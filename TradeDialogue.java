@@ -38,6 +38,7 @@ public class TradeDialogue implements ActionListener {
 
     parent = catan;
     dialogue = new JDialog(parent.frame, "Player " + parent.currentTurn + " Trade", Dialog.ModalityType.DOCUMENT_MODAL);
+    dialogue.setResizable(false);
 
     panels[0] = new JPanel();
     panels[1] = new JPanel();
@@ -200,8 +201,8 @@ public class TradeDialogue implements ActionListener {
     // continue IF player has been selected
     if (selectedPlayer != 0) {
 
-      JLabel test = new JLabel("hehe");
-      panels[1].add(test);
+      JLabel secondHeader = new JLabel("Player " + selectedPlayer + ": What would you like to give?");
+      panels[1].add(secondHeader);
 
     }
 
