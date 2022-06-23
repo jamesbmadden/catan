@@ -7,11 +7,11 @@
 public class Player {
 
   // resources
-  int wood = 0;
-  int bricks = 0;
-  int wheat = 0;
-  int ore = 0;
-  int sheep = 0;
+  int wood = 4;
+  int bricks = 4;
+  int wheat = 4;
+  int ore = 4;
+  int sheep = 4;
 
   // keep track of how many points this player has
   int score = 0;

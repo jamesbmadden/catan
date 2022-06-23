@@ -337,6 +337,7 @@ public class Interface implements ActionListener {
       // trade is pressed: open the dialogue
       case "trade":
         new TradeDialogue(parent);
+        update();
 
     }
 
