@@ -76,7 +76,7 @@ public class Player {
 
     // set the coordinate in roads
     roads[y][x] = true;
-    latestBuild = new int[]{x, y};
+    latestBuild = new int[] { x, y };
     // and then subtract the resources IF this build isn't free
     if (!free) {
       bricks--;
@@ -89,7 +89,7 @@ public class Player {
 
     // set the coordinate in roads
     settlements[y][x] = 1;
-    latestBuild = new int[]{x, y};
+    latestBuild = new int[] { x, y };
     // and then subtract the resources
     if (!free) {
       bricks--;
@@ -100,13 +100,39 @@ public class Player {
 
   }
 
-  public void add (int newWood, int newBricks, int newWheat, int newOre, int newSheep) {
+  public void add(int type, int count) {
 
-    wood += newWood;
-    bricks += newBricks;
-    wheat += newWheat;
-    ore += newOre;
-    sheep += newSheep;
+    System.out.println("Adding " + count + " of " + type + " for whichever player this is lol");
+
+    // depending on the resource's number, add it
+    switch (type) {
+      // 0 = water, undefined
+      case 0:
+        break;
+      // 1 = plains, add sheep
+      case 1:
+        sheep++;
+        break;
+      // 2 = forest, add wood
+      case 2:
+        wood++;
+        break;
+      // 3 = bricks, add bricks
+      case 3:
+        bricks++;
+        break;
+      // 4 = wheat, add wheat
+      case 4:
+        wheat++;
+        break;
+      // 5 = ore, add ore
+      case 5:
+        ore++;
+        break;
+      // 6 = sand, undefined
+      case 6:
+        break;
+    }
 
   }
 

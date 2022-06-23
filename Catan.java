@@ -148,12 +148,14 @@ public class Catan extends JPanel {
 
     }
 
-    // the window doesn't show if initGame is run right away, so use a timer to delay it slightly
+    // the window doesn't show if initGame is run right away, so use a timer to
+    // delay it slightly
     Timer timer = new Timer(50, new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent event) {
-        
-        // now, initialize the game with the process of building the first two settlements per player
+
+        // now, initialize the game with the process of building the first two
+        // settlements per player
         initGame();
 
       }
@@ -189,14 +191,73 @@ public class Catan extends JPanel {
 
     int total = roll1 + roll2;
 
+    System.out.println("You rolled a " + total);
+
     // find each tile with this number so resources can be added
+    for (int y = 0; y < board.numbers.length; y++) {
+      for (int x = 0; x < board.numbers[y].length; x++) {
+
+        // check if the number equals the roll
+        if (board.numbers[y][x] == total) {
+
+          // check if there are settlements bordering this tile and if so, increment their
+          // resources
+          // first settlement: top left
+          int settlement = board.settlements[y][x * 2];
+          if (settlement != 0) {
+            // player owning that settlement needs the appropriate resource incremented
+            players[settlement - 1].add(board.board[y][x], 1);
+          }
+          // top
+          settlement = board.settlements[y][x * 2 + 1];
+          if (settlement != 0) {
+            // player owning that settlement needs the appropriate resource incremented
+            players[settlement - 1].add(board.board[y][x], 1);
+          }
+          // top right
+          settlement = board.settlements[y][x * 2 + 2];
+          if (settlement != 0) {
+            // player owning that settlement needs the appropriate resource incremented
+            players[settlement - 1].add(board.board[y][x], 1);
+          }
+          // now the row below
+          // the first settlement is offset differently depending on whether it's the top
+          // half or bottom half of the board, so adjust for that
+          int offset = 1;
+          if (y > 1) {
+            offset = 0;
+          }
+
+          // bottom left
+          settlement = board.settlements[y + 1][x * 2 + offset];
+          if (settlement != 0) {
+            // player owning that settlement needs the appropriate resource incremented
+            players[settlement - 1].add(board.board[y][x], 1);
+          }
+          // bottom
+          settlement = board.settlements[y + 1][x * 2 + offset + 1];
+          if (settlement != 0) {
+            // player owning that settlement needs the appropriate resource incremented
+            players[settlement - 1].add(board.board[y][x], 1);
+          }
+          // bottom right
+          settlement = board.settlements[y + 1][x * 2 + offset + 2];
+          if (settlement != 0) {
+            // player owning that settlement needs the appropriate resource incremented
+            players[settlement - 1].add(board.board[y][x], 1);
+          }
+
+        }
+
+      }
+    }
 
   }
 
   /**
    * run through each player letting them build two settlements each
    */
-  public void initGame () {
+  public void initGame() {
 
     // for each player, let them build their settlements and roads
     // each player should get two settlements
@@ -259,7 +320,7 @@ public class Catan extends JPanel {
         board.settlements[buildCoords[1]][buildCoords[0]] = currentTurn;
         players[currentTurn - 1].buildSettlement(buildCoords[0], buildCoords[1], false);
         break;
-        
+
       case 3:
         board.settlements[buildCoords[1]][buildCoords[0]] = currentTurn;
         players[currentTurn - 1].buildSettlement(buildCoords[0], buildCoords[1], true);
