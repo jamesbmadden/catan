@@ -177,6 +177,9 @@ public class Catan extends JPanel {
     // now roll the die again
     roll();
 
+    // update the interface to reflect the new turn
+    components.update();
+
   }
 
   /**

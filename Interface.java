@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import java.awt.event.KeyEvent;
 
@@ -31,6 +32,13 @@ public class Interface implements ActionListener {
 
   // the buttons for building
   JButton[] popupButtons = new JButton[3];
+
+  // resource display components
+  JLabel sheep;
+  JLabel wood;
+  JLabel bricks;
+  JLabel wheat;
+  JLabel ore;
 
   // and the grid layout constraints
   GridBagConstraints constraints = new GridBagConstraints();
@@ -84,6 +92,23 @@ public class Interface implements ActionListener {
     endTurnButton.addActionListener(this);
     endTurnButton.setMnemonic(KeyEvent.VK_E);
     addComponentToGrid(endTurnButton, 9, 19, 10, 20);
+
+    // create the resource lists
+    sheep = new JLabel("Sheep: " + parent.players[parent.currentTurn - 1].sheep);
+    sheep.setForeground(Color.WHITE);
+    addComponentToGrid(sheep, 0, 15, 1, 16);
+    wood = new JLabel("Wood: " + parent.players[parent.currentTurn - 1].wood);
+    wood.setForeground(Color.WHITE);
+    addComponentToGrid(wood, 0, 16, 1, 17);
+    bricks = new JLabel("Bricks: " + parent.players[parent.currentTurn - 1].bricks);
+    bricks.setForeground(Color.WHITE);
+    addComponentToGrid(bricks, 0, 17, 1, 18);
+    wheat = new JLabel("Wheat: " + parent.players[parent.currentTurn - 1].wheat);
+    wheat.setForeground(Color.WHITE);
+    addComponentToGrid(wheat, 0, 18, 1, 19);
+    ore = new JLabel("Ore: " + parent.players[parent.currentTurn - 1].ore);
+    ore.setForeground(Color.WHITE);
+    addComponentToGrid(ore, 0, 19, 1, 20);
 
   }
 
@@ -223,6 +248,25 @@ public class Interface implements ActionListener {
   }
 
   /**
+   * Update the display, whether it's a new turn or a change in resource count
+   */
+  public void update() {
+
+    // first, update the header
+    header.setText("Player " + parent.currentTurn + "'s Turn");
+    // set the header to the current player's colour
+    header.setForeground(parent.playerColours[parent.currentTurn - 1]);
+
+    // now the resource counts
+    sheep.setText("Sheep: " + parent.players[parent.currentTurn - 1].sheep);
+    wood.setText("Wood: " + parent.players[parent.currentTurn - 1].wood);
+    bricks.setText("Bricks: " + parent.players[parent.currentTurn - 1].bricks);
+    wheat.setText("Wheat: " + parent.players[parent.currentTurn - 1].wheat);
+    ore.setText("Ore: " + parent.players[parent.currentTurn - 1].ore);
+
+  }
+
+  /**
    * Handle button presses
    */
   @Override
@@ -238,9 +282,6 @@ public class Interface implements ActionListener {
         boolean confirmed = JOptionPane.showConfirmDialog(parent, "Are you sure you want to end your turn?") == 0;
         if (confirmed) {
           parent.nextTurn();
-          header.setText("Player " + parent.currentTurn + "'s Turn");
-          // set the header to the current player's colour
-          header.setForeground(parent.playerColours[parent.currentTurn - 1]);
         }
         break;
       case "build":
