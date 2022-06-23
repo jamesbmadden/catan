@@ -278,8 +278,8 @@ public class Catan extends JPanel {
       }
     }
 
-    // set current turn back to 1
-    currentTurn = 1;
+    // set current turn back to 1 and roll
+    nextTurn();
 
   }
 
