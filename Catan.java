@@ -70,6 +70,18 @@ public class Catan extends JPanel {
     super(new GridBagLayout());
 
     frame = window;
+
+    // show a welcome to catan message!
+    JOptionPane.showMessageDialog(this, "Welcome to Catan!\nThe goal of Catan is to build settlements and cities" +
+    " in order to accumulate points. \nA settlement is worth one point, and upgrading it to a city gives you another.\n" + 
+    " Settlements must be spaced out by two spaces and always connected by roads.\n" +
+    " At the start of the game, each player gets to build two settlements for free,\n and from then on must earn" +
+    " resources either by recieving them from your settlements or trading with other players.\n" +
+    " You recieve resources from your settlements when the number on any adjacent tile is rolled.\n You recieve" +
+    " one of the resource from a settlement, and two from a city.\n" + 
+    " If a seven is rolled, the 'robber' is moved to cover a tile and prevent earning any resources from that tile.\n\n" +
+    " Good luck!");
+
     // BEFORE ANYTHING ELSE, get the game configuration
     config = new GameConfig(window);
 
