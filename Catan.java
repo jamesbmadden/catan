@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import javax.swing.Timer;
@@ -194,7 +195,7 @@ public class Catan extends JPanel {
 
     int total = roll1 + roll2;
 
-    System.out.println("You rolled a " + total);
+    JOptionPane.showMessageDialog(this, "You rolled " + roll1 + " and " + roll2 + ", totalling " + total);
 
     // find each tile with this number so resources can be added
     for (int y = 0; y < board.numbers.length; y++) {
