@@ -26,7 +26,7 @@ public class TradeDialogue implements ActionListener {
   JRadioButton ore;
 
   int selectedToGive = 0;
-  int selectedPlayer = 1;
+  int selectedPlayer = 0;
 
   JButton sheepButton;
   JButton woodButton;
