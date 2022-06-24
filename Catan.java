@@ -56,6 +56,9 @@ public class Catan extends JPanel {
   int currentTurn = 1;
   Player[] players;
 
+  // location of the robber
+  int[] robberLocation = { 2, 2 };
+
   // an array of colours for each player, that is used for any graphical interface
   // elements (like player turn title)
   // these match the colours used in the textures for roads and settlements
@@ -435,6 +438,15 @@ public class Catan extends JPanel {
               numberDiameter,
               null,
               null);
+
+          // IF we're at the robber's location, render that too
+          if (y - startGameRow == robberLocation[1] && x - startGameColumn == robberLocation[0]) {
+            gl.drawImage(robberTexture.img, numStartX, numStartY,
+                numberDiameter,
+                numberDiameter,
+                null,
+                null);
+          }
 
         } else {
 
