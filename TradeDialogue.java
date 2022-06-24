@@ -235,6 +235,7 @@ public class TradeDialogue implements ActionListener {
       // add a title
       JLabel whoTo = new JLabel("Who to trade with?");
       whoTo.setPreferredSize(new Dimension(400, 32));
+      whoTo.setHorizontalAlignment(SwingConstants.CENTER);
       panels[1].add(whoTo);
 
       ButtonGroup playerToTradeWith = new ButtonGroup();
