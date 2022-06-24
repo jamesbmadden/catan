@@ -473,6 +473,8 @@ public class BuildDialogue extends JPanel implements ActionListener {
    */
   public void addRobberButtons() {
 
+    dialogue.setTitle("Move Robber");
+
     // create buttons for each possible settlement space
     // create a list of how many settlements there are per row
     int[] tilesPerRow = { 3, 4, 5, 4, 3 };
@@ -489,7 +491,7 @@ public class BuildDialogue extends JPanel implements ActionListener {
         // out in the action listener
         button.setActionCommand(x + "," + y);
         button.addActionListener(this);
-        button.setEnabled(x != parent.robberLocation[0] && y != parent.robberLocation[1]);
+        button.setEnabled(x != parent.robberLocation[0] || y != parent.robberLocation[1]);
         add(button);
 
       }

@@ -217,12 +217,24 @@ public class Catan extends JPanel {
 
     JOptionPane.showMessageDialog(this, "You rolled " + roll1 + " and " + roll2 + ", totalling " + total);
 
+    // if the roll is a 7, move the robber
+    if (total == 7) {
+      openBuildDialogue(5);
+      // seven isn't a valid number for resources, so we can stop now
+      return;
+    }
+
     // find each tile with this number so resources can be added
     for (int y = 0; y < board.numbers.length; y++) {
       for (int x = 0; x < board.numbers[y].length; x++) {
 
         // check if the number equals the roll
         if (board.numbers[y][x] == total) {
+
+          // if the robber is on this tile, DO NOT increment resources.
+          if (robberLocation[0] == x && robberLocation[1] == y) {
+            return;
+          }
 
           // check if there are settlements bordering this tile and if so, increment their
           // resources
@@ -360,6 +372,11 @@ public class Catan extends JPanel {
         board.settlements[buildCoords[1]][buildCoords[0]] = currentTurn;
         players[currentTurn - 1].buildSettlement(buildCoords[0], buildCoords[1], true);
         break;
+
+      // case 5 is moving the robber
+      case 5:
+        robberLocation[0] = buildCoords[0];
+        robberLocation[1] = buildCoords[1];
 
     }
 
