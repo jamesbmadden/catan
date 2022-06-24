@@ -265,13 +265,13 @@ public class TradeDialogue implements ActionListener {
 
       // add boxes for each of the resources for the selected player
       // add dropdown boxes for each resource
-      sheepOptions = new String[parent.players[parent.currentTurn - 1].sheep + 1];
-      for (int i = 0; i <= parent.players[parent.currentTurn - 1].sheep; i++) {
+      sheepOptions = new String[parent.players[selectedPlayer - 1].sheep + 1];
+      for (int i = 0; i <= parent.players[selectedPlayer - 1].sheep; i++) {
         sheepOptions[i] = i + " Sheep";
       }
-      sheepList = new JList<String>(sheepOptions);
-      sheepList.setSelectedIndex(0);
-      panels[1].add(sheepList);
+      p2SheepList = new JList<String>(sheepOptions);
+      p2SheepList.setSelectedIndex(0);
+      panels[1].add(p2SheepList);
 
       woodOptions = new String[parent.players[selectedPlayer - 1].wood + 1];
       for (int i = 0; i <= parent.players[selectedPlayer - 1].wood; i++) {
@@ -322,6 +322,58 @@ public class TradeDialogue implements ActionListener {
     bricksButton.setEnabled(true);
     wheatButton.setEnabled(true);
     oreButton.setEnabled(true);
+
+  }
+
+  public void makeTrade () {
+
+    // get the count of items each player is giving
+    int[] currentPlayerGiving = {
+      sheepList.getSelectedIndex(),
+      woodList.getSelectedIndex(),
+      bricksList.getSelectedIndex(),
+      wheatList.getSelectedIndex(),
+      oreList.getSelectedIndex()
+    };
+    // and the other player
+    int[] otherPlayerGiving = {
+      p2SheepList.getSelectedIndex(),
+      p2WoodList.getSelectedIndex(),
+      p2BricksList.getSelectedIndex(),
+      p2WheatList.getSelectedIndex(),
+      p2OreList.getSelectedIndex()
+    };
+
+    // subtract all that from each player
+    parent.players[parent.currentTurn - 1].sheep -= currentPlayerGiving[0];
+    parent.players[parent.currentTurn - 1].wood -= currentPlayerGiving[1];
+    parent.players[parent.currentTurn - 1].bricks -= currentPlayerGiving[2];
+    parent.players[parent.currentTurn - 1].wheat -= currentPlayerGiving[3];
+    parent.players[parent.currentTurn - 1].ore -= currentPlayerGiving[4];
+
+    // and the other player
+    parent.players[selectedPlayer - 1].sheep -= otherPlayerGiving[0];
+    parent.players[selectedPlayer - 1].wood -= otherPlayerGiving[1];
+    parent.players[selectedPlayer - 1].bricks -= otherPlayerGiving[2];
+    parent.players[selectedPlayer - 1].wheat -= otherPlayerGiving[3];
+    parent.players[selectedPlayer - 1].ore -= otherPlayerGiving[4];
+
+    // and now add to the other
+    parent.players[parent.currentTurn - 1].sheep += otherPlayerGiving[0];
+    parent.players[parent.currentTurn - 1].wood += otherPlayerGiving[1];
+    parent.players[parent.currentTurn - 1].bricks += otherPlayerGiving[2];
+    parent.players[parent.currentTurn - 1].wheat += otherPlayerGiving[3];
+    parent.players[parent.currentTurn - 1].ore += otherPlayerGiving[4];
+
+    // and the other player
+    parent.players[selectedPlayer - 1].sheep += currentPlayerGiving[0];
+    parent.players[selectedPlayer - 1].wood += currentPlayerGiving[1];
+    parent.players[selectedPlayer - 1].bricks += currentPlayerGiving[2];
+    parent.players[selectedPlayer - 1].wheat += currentPlayerGiving[3];
+    parent.players[selectedPlayer - 1].ore += currentPlayerGiving[4];
+
+    // now close the dialogue
+    dialogue.dispose();
 
   }
 
@@ -455,6 +507,11 @@ public class TradeDialogue implements ActionListener {
         populatePlayerTab();
         panels[1].revalidate();
         panels[1].repaint();
+        break;
+
+      // on make trade, do it!!
+      case "make-trade":
+        makeTrade();
         break;
 
     }
