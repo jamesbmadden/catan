@@ -80,6 +80,11 @@ public class BuildDialogue extends JPanel implements ActionListener {
         addRoadButtons(true);
         break;
 
+      // case five is for moving the robber
+      case 5:
+        addRobberButtons();
+        break;
+
     }
 
     dialogue.setVisible(true);
@@ -455,6 +460,36 @@ public class BuildDialogue extends JPanel implements ActionListener {
         button.addActionListener(this);
         button.setEnabled(isSettlementBuildable(x, y, player, freeBuild));
 
+        add(button);
+
+      }
+
+    }
+
+  }
+
+  /**
+   * Add buttons for moving the robber
+   */
+  public void addRobberButtons() {
+
+    // create buttons for each possible settlement space
+    // create a list of how many settlements there are per row
+    int[] tilesPerRow = { 3, 4, 5, 4, 3 };
+    // how much to offset each row on the x axis
+    int[] tileOffset = { 110, 75, 40, 75, 110 };
+
+    for (int y = 0; y < 5; y++) {
+
+      for (int x = 0; x < tilesPerRow[y]; x++) {
+
+        JButton button = new JButton("+");
+        button.setBounds(tileOffset[y] + x * 70, 50 + y * 65, 40, 40);
+        // set the action command to the coordinates where to build so it may be figured
+        // out in the action listener
+        button.setActionCommand(x + "," + y);
+        button.addActionListener(this);
+        button.setEnabled(x != parent.robberLocation[0] && y != parent.robberLocation[1]);
         add(button);
 
       }
