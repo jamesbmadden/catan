@@ -195,6 +195,9 @@ public class Catan extends JPanel {
     // go to the next player's turn
     currentTurn = (currentTurn % config.playerCount) + 1;
 
+    // update the interface to show the new player in the header before the roll
+    components.update();
+
     // now roll the die again
     roll();
 
@@ -333,6 +336,8 @@ public class Catan extends JPanel {
         board.settlements[settlementOptions[5][1]][settlementOptions[5][0]] == 0) {
 
       // nothing to steal, return :(
+      JOptionPane.showMessageDialog(this,
+          "The robber found no settlement to steal from.");
       return;
 
     }
