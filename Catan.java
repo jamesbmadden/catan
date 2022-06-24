@@ -238,20 +238,26 @@ public class Catan extends JPanel {
 
           // check if there are settlements bordering this tile and if so, increment their
           // resources
+          // the first settlement is offset differently depending on whether it's the top
+          // half or bottom half of the board, so adjust for that
+          int offset = 0;
+          if (y > 2) {
+            offset = 1;
+          }
           // first settlement: top left
-          int settlement = board.settlements[y][x * 2];
+          int settlement = board.settlements[y][x * 2 + offset];
           if (settlement != 0) {
             // player owning that settlement needs the appropriate resource incremented
             players[settlement - 1].add(board.board[y][x], 1);
           }
           // top
-          settlement = board.settlements[y][x * 2 + 1];
+          settlement = board.settlements[y][x * 2 + 1 + offset];
           if (settlement != 0) {
             // player owning that settlement needs the appropriate resource incremented
             players[settlement - 1].add(board.board[y][x], 1);
           }
           // top right
-          settlement = board.settlements[y][x * 2 + 2];
+          settlement = board.settlements[y][x * 2 + 2 + offset];
           if (settlement != 0) {
             // player owning that settlement needs the appropriate resource incremented
             players[settlement - 1].add(board.board[y][x], 1);
@@ -259,7 +265,7 @@ public class Catan extends JPanel {
           // now the row below
           // the first settlement is offset differently depending on whether it's the top
           // half or bottom half of the board, so adjust for that
-          int offset = 1;
+          offset = 1;
           if (y > 1) {
             offset = 0;
           }
@@ -287,6 +293,134 @@ public class Catan extends JPanel {
 
       }
     }
+
+  }
+
+  /**
+   * When the player moves a robber, steal a random resource from an adjacent
+   * settlement.
+   */
+  public void steal(int x, int y) {
+
+    // first get a list of all the adjacent settlements
+    // same process for settlement coords as above
+    int bottomOffset = 1;
+    if (y > 1) {
+      bottomOffset = 0;
+    }
+
+    int topOffset = 0;
+    if (y > 2) {
+      topOffset = 1;
+    }
+
+    int[][] settlementOptions = {
+        { x * 2 + topOffset, y },
+        { x * 2 + 1 + topOffset, y },
+        { x * 2 + 2 + topOffset, y },
+        { x * 2 + bottomOffset, y + 1 },
+        { x * 2 + 1 + bottomOffset, y + 1 },
+        { x * 2 + 2 + bottomOffset, y + 1 },
+
+    };
+
+    // catchall if none of the settlements are built
+    if (board.settlements[settlementOptions[0][1]][settlementOptions[0][0]] == 0 &&
+        board.settlements[settlementOptions[1][1]][settlementOptions[1][0]] == 0 &&
+        board.settlements[settlementOptions[2][1]][settlementOptions[2][0]] == 0 &&
+        board.settlements[settlementOptions[3][1]][settlementOptions[3][0]] == 0 &&
+        board.settlements[settlementOptions[4][1]][settlementOptions[4][0]] == 0 &&
+        board.settlements[settlementOptions[5][1]][settlementOptions[5][0]] == 0) {
+
+      // nothing to steal, return :(
+      return;
+
+    }
+
+    // now that we have that list, randomly pick one. If it is null (no settlement),
+    // pick again.
+    Random random = new Random();
+    int settlement = random.nextInt(6);
+    while (board.settlements[settlementOptions[settlement][1]][settlementOptions[settlement][0]] == 0) {
+      settlement = random.nextInt(6);
+    }
+
+    // player that we're stealing from
+    int player = board.settlements[settlementOptions[settlement][1]][settlementOptions[settlement][0]];
+    Player playerClass = players[player - 1];
+
+    // if the player has no resources, end it here
+    if (playerClass.sheep == 0 &&
+        playerClass.wood == 0 &&
+        playerClass.bricks == 0 &&
+        playerClass.wheat == 0 &&
+        playerClass.ore == 0) {
+      JOptionPane.showMessageDialog(this,
+          "The robber tried to steal from player " + player + " but they were too poor and had nothing to take :(");
+      return;
+    }
+
+    // now pick a resource to take (but make sure it's a resource they really have)
+    int resourceType = random.nextInt(5);
+    int countOfType = 0;
+    do {
+
+      resourceType = random.nextInt(5);
+      countOfType = 0;
+      switch (resourceType) {
+        case 0:
+          countOfType = playerClass.sheep;
+          break;
+        case 1:
+          countOfType = playerClass.wood;
+          break;
+        case 2:
+          countOfType = playerClass.bricks;
+          break;
+        case 3:
+          countOfType = playerClass.wheat;
+          break;
+        case 4:
+          countOfType = playerClass.ore;
+          break;
+      }
+
+    } while (countOfType == 0);
+
+    // finally, we can steal!!
+    // for the message box
+    String resourceName = "";
+    switch (resourceType) {
+      case 0:
+        players[player - 1].sheep--;
+        players[currentTurn - 1].sheep++;
+        resourceName = "Sheep";
+        break;
+      case 1:
+        players[player - 1].wood--;
+        players[currentTurn - 1].wood++;
+        resourceName = "Wood";
+        break;
+      case 2:
+        players[player - 1].bricks--;
+        players[currentTurn - 1].bricks++;
+        resourceName = "Bricks";
+        break;
+      case 3:
+        players[player - 1].wheat--;
+        players[currentTurn - 1].wheat++;
+        resourceName = "Wheat";
+        break;
+      case 4:
+        players[player - 1].ore--;
+        players[currentTurn - 1].ore++;
+        resourceName = "Ore";
+        break;
+    }
+
+    // show the dialogue
+    JOptionPane.showMessageDialog(this,
+        "The robber stole " + resourceName + " from player " + player + " and gave it to player " + currentTurn);
 
   }
 
@@ -377,6 +511,10 @@ public class Catan extends JPanel {
       case 5:
         robberLocation[0] = buildCoords[0];
         robberLocation[1] = buildCoords[1];
+        steal(robberLocation[0], robberLocation[1]);
+        // and finally update the interface
+        components.update();
+        break;
 
     }
 
