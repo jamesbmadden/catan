@@ -1,3 +1,4 @@
+
 /**
  * the dialogue that pops up when you click on the "trade" button.
  */
@@ -48,7 +49,7 @@ public class TradeDialogue implements ActionListener {
   JList<String> p2WheatList;
   JList<String> p2OreList;
 
-  public TradeDialogue (Catan catan) {
+  public TradeDialogue(Catan catan) {
 
     parent = catan;
     dialogue = new JDialog(parent.frame, "Player " + parent.currentTurn + " Trade", Dialog.ModalityType.DOCUMENT_MODAL);
@@ -75,11 +76,13 @@ public class TradeDialogue implements ActionListener {
 
   }
 
-  public void populateBankTab () {
+  public void populateBankTab() {
 
     // create a label at the top specifying what trading with the bank means.
-    JLabel info = new JLabel("<html>Trading with the bank allows you to swap<br>4 resources of the same type for one resource of<br>another type.</html>");
-
+    JLabel info = new JLabel(
+        "<html>Trading with the bank allows you to swap<br>4 resources of the same type for one resource of<br>another type.</html>");
+    info.setPreferredSize(new Dimension(400, 64));
+    info.setHorizontalAlignment(SwingConstants.CENTER);
     panels[0].add(info);
 
     // options for resources
@@ -108,7 +111,7 @@ public class TradeDialogue implements ActionListener {
     bricks.addActionListener(this);
     resourcesToLose.add(bricks);
     panels[0].add(bricks);
-    
+
     wheat = new JRadioButton("Wheat");
     // if the player doesn't have four or more, don't let them select it
     wheat.setActionCommand("bank-give-wheat");
@@ -126,20 +129,24 @@ public class TradeDialogue implements ActionListener {
     panels[0].add(ore);
 
     // if the player has not enough of any resources, send them a condolence message
-    boolean playerHasNothing = parent.players[parent.currentTurn - 1].sheep < 4 && 
-    parent.players[parent.currentTurn - 1].wood < 4 && 
-    parent.players[parent.currentTurn - 1].bricks < 4 && 
-    parent.players[parent.currentTurn - 1].wheat < 4 && 
-    parent.players[parent.currentTurn - 1].ore < 4;
+    boolean playerHasNothing = parent.players[parent.currentTurn - 1].sheep < 4 &&
+        parent.players[parent.currentTurn - 1].wood < 4 &&
+        parent.players[parent.currentTurn - 1].bricks < 4 &&
+        parent.players[parent.currentTurn - 1].wheat < 4 &&
+        parent.players[parent.currentTurn - 1].ore < 4;
 
     if (playerHasNothing) {
 
       JLabel sorry = new JLabel("<html>Sorry, but you don't have enough<br>of anything to trade with the bank.</html>");
+      sorry.setPreferredSize(new Dimension(400, 32));
+      sorry.setHorizontalAlignment(SwingConstants.CENTER);
       panels[0].add(sorry);
 
     } else {
 
       JLabel tradeTitle = new JLabel("Trade for...");
+      tradeTitle.setPreferredSize(new Dimension(400, 32));
+      tradeTitle.setHorizontalAlignment(SwingConstants.CENTER);
       panels[0].add(tradeTitle);
 
       // player has something to trade, so give them buttons for what they want
@@ -172,7 +179,7 @@ public class TradeDialogue implements ActionListener {
 
   }
 
-  public void populatePlayerTab () {
+  public void populatePlayerTab() {
 
     JLabel header = new JLabel("Player " + parent.currentTurn + ": What are you offering?");
     header.setPreferredSize(new Dimension(400, 32));
@@ -220,7 +227,8 @@ public class TradeDialogue implements ActionListener {
     oreList.setSelectedIndex(0);
     panels[1].add(oreList);
 
-    // if there's only one player, there's no need for selecting a player. Pick the one that
+    // if there's only one player, there's no need for selecting a player. Pick the
+    // one that
     // ISN'T currently the player.
     if (parent.config.playerCount == 2) {
 
@@ -317,7 +325,7 @@ public class TradeDialogue implements ActionListener {
 
   }
 
-  public void enableButtons () {
+  public void enableButtons() {
 
     sheepButton.setEnabled(true);
     woodButton.setEnabled(true);
@@ -327,23 +335,23 @@ public class TradeDialogue implements ActionListener {
 
   }
 
-  public void makeTrade () {
+  public void makeTrade() {
 
     // get the count of items each player is giving
     int[] currentPlayerGiving = {
-      sheepList.getSelectedIndex(),
-      woodList.getSelectedIndex(),
-      bricksList.getSelectedIndex(),
-      wheatList.getSelectedIndex(),
-      oreList.getSelectedIndex()
+        sheepList.getSelectedIndex(),
+        woodList.getSelectedIndex(),
+        bricksList.getSelectedIndex(),
+        wheatList.getSelectedIndex(),
+        oreList.getSelectedIndex()
     };
     // and the other player
     int[] otherPlayerGiving = {
-      p2SheepList.getSelectedIndex(),
-      p2WoodList.getSelectedIndex(),
-      p2BricksList.getSelectedIndex(),
-      p2WheatList.getSelectedIndex(),
-      p2OreList.getSelectedIndex()
+        p2SheepList.getSelectedIndex(),
+        p2WoodList.getSelectedIndex(),
+        p2BricksList.getSelectedIndex(),
+        p2WheatList.getSelectedIndex(),
+        p2OreList.getSelectedIndex()
     };
 
     // subtract all that from each player
@@ -379,38 +387,37 @@ public class TradeDialogue implements ActionListener {
 
   }
 
-  public void giveResource () {
+  public void giveResource() {
 
     // take the selected resource from the player
     switch (selectedToGive) {
 
-      case 1: 
+      case 1:
         parent.players[parent.currentTurn - 1].sheep -= 4;
         break;
 
-
-      case 2: 
+      case 2:
         parent.players[parent.currentTurn - 1].wood -= 4;
         break;
 
-      case 3: 
+      case 3:
         parent.players[parent.currentTurn - 1].bricks -= 4;
         break;
 
-      case 4: 
+      case 4:
         parent.players[parent.currentTurn - 1].wheat -= 4;
         break;
 
-      case 5: 
+      case 5:
         parent.players[parent.currentTurn - 1].ore -= 4;
         break;
-      
+
     }
 
   }
 
   @Override
-  public void actionPerformed (ActionEvent event) {
+  public void actionPerformed(ActionEvent event) {
 
     String code = event.getActionCommand();
 
@@ -422,7 +429,7 @@ public class TradeDialogue implements ActionListener {
         enableButtons();
         sheepButton.setEnabled(false);
         break;
-    
+
       case "bank-give-wood":
         selectedToGive = 2;
         enableButtons();
@@ -453,7 +460,7 @@ public class TradeDialogue implements ActionListener {
         parent.players[parent.currentTurn - 1].sheep++;
         dialogue.dispose();
         break;
-      
+
       case "bank-take-wood":
         giveResource();
         parent.players[parent.currentTurn - 1].wood++;
@@ -502,7 +509,7 @@ public class TradeDialogue implements ActionListener {
         panels[1].revalidate();
         panels[1].repaint();
         break;
-      
+
       case "set-player-4":
         selectedPlayer = 4;
         panels[1].removeAll();
@@ -519,5 +526,5 @@ public class TradeDialogue implements ActionListener {
     }
 
   }
-  
+
 }
