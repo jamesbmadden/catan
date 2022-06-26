@@ -133,23 +133,23 @@ public class Player {
         break;
       // 1 = plains, add sheep
       case 1:
-        sheep++;
+        sheep += count;
         break;
       // 2 = forest, add wood
       case 2:
-        wood++;
+        wood += count;
         break;
       // 3 = bricks, add bricks
       case 3:
-        bricks++;
+        bricks += count;
         break;
       // 4 = wheat, add wheat
       case 4:
-        wheat++;
+        wheat += count;
         break;
       // 5 = ore, add ore
       case 5:
-        ore++;
+        ore += count;
         break;
       // 6 = sand, undefined
       case 6:
