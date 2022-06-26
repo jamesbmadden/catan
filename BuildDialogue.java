@@ -232,7 +232,7 @@ public class BuildDialogue extends JPanel implements ActionListener {
         return true;
       }
       // then bottom half
-      else if (y / 2 == by && x * 2 + 1 == bx) {
+      else if (y >= 6 && y / 2 == by && x * 2 + 1 == bx) {
         return true;
       }
       // now check below
@@ -241,7 +241,7 @@ public class BuildDialogue extends JPanel implements ActionListener {
         return true;
       }
       // then bottom half
-      else if (y / 2 + 1 == by && x * 2 == bx) {
+      else if (y >= 6 && y / 2 + 1 == by && x * 2 == bx) {
         return true;
       }
     }
