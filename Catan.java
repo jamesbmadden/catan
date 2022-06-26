@@ -373,7 +373,13 @@ public class Catan extends JPanel {
         board.settlements[settlementOptions[2][1]][settlementOptions[2][0]] == 0 &&
         board.settlements[settlementOptions[3][1]][settlementOptions[3][0]] == 0 &&
         board.settlements[settlementOptions[4][1]][settlementOptions[4][0]] == 0 &&
-        board.settlements[settlementOptions[5][1]][settlementOptions[5][0]] == 0) {
+        board.settlements[settlementOptions[5][1]][settlementOptions[5][0]] == 0 &&
+        board.cities[settlementOptions[0][1]][settlementOptions[0][0]] == 0 &&
+        board.cities[settlementOptions[1][1]][settlementOptions[1][0]] == 0 &&
+        board.cities[settlementOptions[2][1]][settlementOptions[2][0]] == 0 &&
+        board.cities[settlementOptions[3][1]][settlementOptions[3][0]] == 0 &&
+        board.cities[settlementOptions[4][1]][settlementOptions[4][0]] == 0 &&
+        board.cities[settlementOptions[5][1]][settlementOptions[5][0]] == 0) {
 
       // nothing to steal, return :(
       JOptionPane.showMessageDialog(this,
@@ -386,12 +392,15 @@ public class Catan extends JPanel {
     // pick again.
     Random random = new Random();
     int settlement = random.nextInt(6);
-    while (board.settlements[settlementOptions[settlement][1]][settlementOptions[settlement][0]] == 0) {
+    while (board.settlements[settlementOptions[settlement][1]][settlementOptions[settlement][0]] == 0 && board.cities[settlementOptions[settlement][1]][settlementOptions[settlement][0]] == 0) {
       settlement = random.nextInt(6);
     }
 
     // player that we're stealing from
     int player = board.settlements[settlementOptions[settlement][1]][settlementOptions[settlement][0]];
+    if (player == 0) {
+      player = board.cities[settlementOptions[settlement][1]][settlementOptions[settlement][0]];
+    }
     Player playerClass = players[player - 1];
 
     // if the player has no resources, end it here
