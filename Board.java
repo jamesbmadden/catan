@@ -47,6 +47,16 @@ public class Board {
       { 0, 0, 0, 0, 0, 0, 0 }
   };
 
+  // same thing but for cities
+  int[][] cities = {
+    { 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0 }
+  };
+
   // which road spaces are already filled
   int[][] roads = {
       { 0, 0, 0, 0, 0, 0 },

@@ -35,6 +35,8 @@ public class Catan extends JPanel {
   Texture[][] roadTextures;
   // the settlement textures
   Texture[] settlementTextures;
+  // the city textures
+  Texture[] cityTextures;
   // rober texture
   Texture robberTexture;
 
@@ -153,12 +155,20 @@ public class Catan extends JPanel {
           new Texture("img/builds/settlement/p3.png"),
           new Texture("img/builds/settlement/p4.png")
       };
+      Texture[] _cityTextures = {
+        null,
+        new Texture("img/builds/city/p1.png"),
+        new Texture("img/builds/city/p2.png"),
+        new Texture("img/builds/city/p3.png"),
+        new Texture("img/builds/city/p4.png")
+      };
       // set this list of textures so it can be used
       tileTextures = _tileTextures;
       numberTextures = _numberTextures;
       gradientTextures = _gradientTextures;
       roadTextures = _roadTextures;
       settlementTextures = _settlementTextures;
+      cityTextures = _cityTextures;
       robberTexture = new Texture("img/robber.png");
 
     } catch (Exception error) {
@@ -775,6 +785,8 @@ public class Catan extends JPanel {
 
       // grab the first settlement
       int settlementType = board.settlements[settlementY][settlementX];
+      // and if there's a city in the same place
+      int cityType = board.cities[settlementY][settlementX];
 
       // if it's not empty, render!
       if (settlementType != 0) {
@@ -789,12 +801,25 @@ public class Catan extends JPanel {
             null,
             null);
       }
+      if (cityType != 0) {
+
+        // this is the FIRST settlement, so render using the left coordinates
+        int startX = -10;
+        int startY = 13;
+
+        gl.drawImage(cityTextures[cityType].img, drawX + startX,
+            drawY + startY, 20,
+            26,
+            null,
+            null);
+      }
 
       settlementX++;
       if (settlementX < board.settlements[settlementY].length) {
 
         // it exists, so check the settlement type
         settlementType = board.settlements[settlementY][settlementX];
+        cityType = board.cities[settlementY][settlementX];
         if (settlementType != 0) {
 
           // this is the TOP settlement, so render using the top coordinates
@@ -802,6 +827,19 @@ public class Catan extends JPanel {
           int startY = -13;
 
           gl.drawImage(settlementTextures[settlementType].img, drawX + startX,
+              drawY + startY, 20,
+              26,
+              null,
+              null);
+
+        }
+        if (cityType != 0) {
+
+          // this is the TOP settlement, so render using the top coordinates
+          int startX = tileWidth / 2 - 10;
+          int startY = -13;
+
+          gl.drawImage(cityTextures[cityType].img, drawX + startX,
               drawY + startY, 20,
               26,
               null,
@@ -817,6 +855,7 @@ public class Catan extends JPanel {
 
       // it exists, so check the settlement type
       int settlementType = board.settlements[settlementY][0];
+      int cityType = board.cities[settlementY][0];
       if (settlementType != 0) {
 
         // this is the TOP settlement, so render using the top coordinates
@@ -824,6 +863,19 @@ public class Catan extends JPanel {
         int startY = -13;
 
         gl.drawImage(settlementTextures[settlementType].img, drawX + startX,
+            drawY + startY, 20,
+            26,
+            null,
+            null);
+
+      }
+      if (cityType != 0) {
+
+        // this is the TOP settlement, so render using the top coordinates
+        int startX = tileWidth / 2 - 10;
+        int startY = -13;
+
+        gl.drawImage(cityTextures[cityType].img, drawX + startX,
             drawY + startY, 20,
             26,
             null,
