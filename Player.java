@@ -122,6 +122,9 @@ public class Player {
     wheat -= 2;
     ore -= 3;
 
+    // you get a point!
+    incrementScore();
+
   }
 
   public void add(int type, int count) {
