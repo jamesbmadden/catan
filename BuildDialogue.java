@@ -265,7 +265,7 @@ public class BuildDialogue extends JPanel implements ActionListener {
   public boolean isSettlementBuildable(int x, int y, int player, boolean freeBuild) {
 
     // check whether this space is already filled
-    if (board.settlements[y][x] != 0) {
+    if (board.settlements[y][x] != 0 || board.cities[y][x] != 0) {
       return false;
     }
     // now check whether any of the bordering spaces are already taken, in which
