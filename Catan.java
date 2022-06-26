@@ -698,7 +698,6 @@ public class Catan extends JPanel {
    */
   public void renderRoad(Graphics gl, int x, int y, int drawX, int drawY) {
 
-    // okay lets get this over with :(
     // first off, define what type of road we need at each spot (left = 0, right =
     // 1, down = 2)
     int[][] typeOfRoad = {
@@ -714,7 +713,7 @@ public class Catan extends JPanel {
         { 2, 2, 2, 2 },
         { 1, 0, 1, 0, 1, 0 }
     };
-    // and the road dimensions, based off of tile dimsnions
+    // and the road dimensions, based off of tile dimensions
     int[][] roadDimensions = {
         { tileWidth / 2, tileHeight / 4 },
         { tileWidth / 2, tileHeight / 4 },
@@ -808,7 +807,7 @@ public class Catan extends JPanel {
   }
 
   /**
-   * here we go again :(
+   * Render settlements and cities. Similar process to rendering roads.
    */
   public void renderSettlement(Graphics gl, int x, int y, int drawX, int drawY) {
 

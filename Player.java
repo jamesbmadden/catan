@@ -83,6 +83,12 @@ public class Player {
 
   }
 
+  /**
+   * Build a road at the specified coordinates, and remove resources if not at the start of the game.
+   * @param x position to build
+   * @param y position to build
+   * @param free whether to use resources
+   */
   public void buildRoad(int x, int y, boolean free) {
 
     // set the coordinate in roads
@@ -96,6 +102,12 @@ public class Player {
 
   }
 
+  /**
+   * Build a settlement at the specified coordinates, and remove resources if not at the start of the game.
+   * @param x position to build
+   * @param y position to build
+   * @param free whether to use resources
+   */
   public void buildSettlement(int x, int y, boolean free) {
 
     // set the coordinate in roads
@@ -114,6 +126,11 @@ public class Player {
 
   }
 
+    /**
+   * Build a city at the specified coordinates.
+   * @param x position to build
+   * @param y position to build
+   */
   public void buildCity(int x, int y) {
 
     settlements[y][x] = 2;
@@ -127,6 +144,11 @@ public class Player {
 
   }
 
+  /**
+   * increment the resource of whichever type.
+   * @param type an integer representing a different type of tile.
+   * @param count the amount of that resource to add
+   */
   public void add(int type, int count) {
 
     // depending on the resource's number, add it
@@ -161,6 +183,9 @@ public class Player {
 
   }
 
+  /**
+   * Increase the player's score, and check if they've won!
+   */
   public void incrementScore () {
 
     score++;

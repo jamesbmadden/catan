@@ -343,8 +343,6 @@ public class BuildDialogue extends JPanel implements ActionListener {
 
     // if we're still going here, free build is NOT on and we have to make sure
     // roads are connected to the settlement
-    // ahhh!!!!!!!!
-    // :((((
     if (y >= 0 && y < 6) {
 
       // check to the left
