@@ -259,21 +259,36 @@ public class Catan extends JPanel {
           }
           // first settlement: top left
           int settlement = board.settlements[y][x * 2 + offset];
+          int city = board.cities[y][x * 2 + offset];
           if (settlement != 0) {
             // player owning that settlement needs the appropriate resource incremented
             players[settlement - 1].add(board.board[y][x], 1);
+          }
+          if (city != 0) {
+            // player owning that settlement needs the appropriate resource incremented
+            players[settlement - 1].add(board.board[y][x], 2);
           }
           // top
           settlement = board.settlements[y][x * 2 + 1 + offset];
+          city = board.cities[y][x * 2 + 1 + offset];
           if (settlement != 0) {
             // player owning that settlement needs the appropriate resource incremented
             players[settlement - 1].add(board.board[y][x], 1);
           }
+          if (city != 0) {
+            // player owning that settlement needs the appropriate resource incremented
+            players[settlement - 1].add(board.board[y][x], 2);
+          }
           // top right
           settlement = board.settlements[y][x * 2 + 2 + offset];
+          city = board.cities[y][x * 2 + 2 + offset];
           if (settlement != 0) {
             // player owning that settlement needs the appropriate resource incremented
             players[settlement - 1].add(board.board[y][x], 1);
+          }
+          if (city != 0) {
+            // player owning that settlement needs the appropriate resource incremented
+            players[settlement - 1].add(board.board[y][x], 2);
           }
           // now the row below
           // the first settlement is offset differently depending on whether it's the top
@@ -285,21 +300,36 @@ public class Catan extends JPanel {
 
           // bottom left
           settlement = board.settlements[y + 1][x * 2 + offset];
+          city = board.cities[y + 1][x * 2 + offset];
           if (settlement != 0) {
             // player owning that settlement needs the appropriate resource incremented
             players[settlement - 1].add(board.board[y][x], 1);
+          }
+          if (city != 0) {
+            // player owning that settlement needs the appropriate resource incremented
+            players[settlement - 1].add(board.board[y][x], 2);
           }
           // bottom
           settlement = board.settlements[y + 1][x * 2 + offset + 1];
+          city = board.cities[y + 1][x * 2 + offset + 1];
           if (settlement != 0) {
             // player owning that settlement needs the appropriate resource incremented
             players[settlement - 1].add(board.board[y][x], 1);
           }
+          if (city != 0) {
+            // player owning that settlement needs the appropriate resource incremented
+            players[settlement - 1].add(board.board[y][x], 2);
+          }
           // bottom right
           settlement = board.settlements[y + 1][x * 2 + offset + 2];
+          city = board.cities[y + 1][x * 2 + offset + 2];
           if (settlement != 0) {
             // player owning that settlement needs the appropriate resource incremented
             players[settlement - 1].add(board.board[y][x], 1);
+          }
+          if (city != 0) {
+            // player owning that settlement needs the appropriate resource incremented
+            players[settlement - 1].add(board.board[y][x], 2);
           }
 
         }
