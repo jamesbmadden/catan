@@ -531,6 +531,12 @@ public class Catan extends JPanel {
         components.update();
         break;
 
+      // case 6 is building a city
+      case 6:
+      board.cities[buildCoords[1]][buildCoords[0]] = currentTurn;
+      players[currentTurn - 1].buildCity(buildCoords[0], buildCoords[1]);
+      break;
+
     }
 
     // finally, close the popup buttons in the interface

@@ -85,6 +85,11 @@ public class BuildDialogue extends JPanel implements ActionListener {
         addRobberButtons();
         break;
 
+      // finally, case 6 is upgrading to a city
+      case 6:
+        addCityButtons();
+        break;
+
     }
 
     dialogue.setVisible(true);
@@ -459,6 +464,45 @@ public class BuildDialogue extends JPanel implements ActionListener {
         button.setActionCommand(x + "," + y);
         button.addActionListener(this);
         button.setEnabled(isSettlementBuildable(x, y, player, freeBuild));
+
+        add(button);
+
+      }
+
+    }
+
+  }
+
+  /**
+   * Add buttons for building a road or settlement
+   */
+  public void addCityButtons() {
+
+    // create buttons for each possible settlement space
+    // create a list of how many settlements there are per row
+    int[] settlementsPerRow = { 7, 9, 11, 11, 9, 7 };
+    // how much to offset each row on the x axis
+    int[] rowOffset = { 90, 55, 20, 20, 55, 90 };
+
+    for (int y = 0; y < 6; y++) {
+
+      for (int x = 0; x < settlementsPerRow[y]; x++) {
+
+        JButton button = new JButton("+");
+        // if the column is odd, offset the y position
+        // if y > 2, the offset should be flipped
+        int yOffset;
+        if (y < 3) {
+          yOffset = x % 2 * -20;
+        } else {
+          yOffset = (x + 1) % 2 * -20;
+        }
+        button.setBounds(rowOffset[y] + x * 35, 40 + yOffset + y * 65, 20, 20);
+        // set the action command to the coordinates where to build so it may be figured
+        // out in the action listener
+        button.setActionCommand(x + "," + y);
+        button.addActionListener(this);
+        button.setEnabled(parent.board.settlements[y][x] == player);
 
         add(button);
 

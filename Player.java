@@ -114,6 +114,16 @@ public class Player {
 
   }
 
+  public void buildCity(int x, int y) {
+
+    settlements[y][x] = 2;
+    latestBuild = new int[] { x, y };
+
+    wheat -= 2;
+    ore -= 3;
+
+  }
+
   public void add(int type, int count) {
 
     // depending on the resource's number, add it
