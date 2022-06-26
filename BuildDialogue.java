@@ -237,11 +237,11 @@ public class BuildDialogue extends JPanel implements ActionListener {
       }
       // now check below
       // first top half
-      if (y < 6 && y / 2 + 1 == by && x * 2 + 1 == bx) {
+      if (y < 5 && y / 2 + 1 == by && x * 2 + 1 == bx) {
         return true;
       }
       // then bottom half
-      else if (y >= 6 && y / 2 + 1 == by && x * 2 == bx) {
+      else if (y >= 5 && y / 2 + 1 == by && x * 2 == bx) {
         return true;
       }
     }
